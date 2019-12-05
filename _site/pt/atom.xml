@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title></title>
+ <link href="http://0.0.0.0:4000/atom.xml" rel="self"/>
+ <link href="http://0.0.0.0:4000/"/>
+ <updated>2019-12-04T19:42:23-06:00</updated>
+ <id>http://0.0.0.0:4000</id>
+ <author>
+   <name></name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>SysAdmin & DevOps Tools & Frameworks</title>
+   <link href="http://0.0.0.0:4000/sysadmin-devops-toos-and-frameworks"/>
+   <updated>2019-12-01T00:00:00-06:00</updated>
+   <id>http://0.0.0.0:4000/SysAdmin-DevOps-Tools-And-Frameworks</id>
+   <content type="html">&lt;p&gt;O quanto dificil e para o SysAdmin/DevOps se manter atualizado das ferramentas, plataformas e frameworks disponiveis no mercado?&lt;/p&gt;
+
+&lt;p&gt;3 anos atras, &lt;a href=&quot;https://twitter.com/badtux_&quot;&gt;Jeferson Norona&lt;/a&gt; #LinuxTips (VAI), postou em suas redes sociais um projeto responsavel por coletar e consolidar ferramentas utilizadas para facilitar a vida do SysAdmin/DevOps.&lt;/p&gt;
+
+&lt;p&gt;O projeto foi criado por &lt;a href=&quot;blackbird.si&quot;&gt;Alen Krmelj&lt;/a&gt;, magnifico!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2019/12/itlandscape.png&quot; alt=&quot;itlandscape.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://sysadmin.it-landscape.info/&quot;&gt;http://sysadmin.it-landscape.info/&lt;/a&gt;&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>I'm Back!</title>
+   <link href="http://0.0.0.0:4000/im-back/"/>
+   <updated>2019-12-01T00:00:00-06:00</updated>
+   <id>http://0.0.0.0:4000/Hello-World</id>
+   <content type="html">&lt;p&gt;Apos anos sem nada no Blog, estou de Volta!&lt;/p&gt;
+
+&lt;p&gt;Estou migrando meu velho hugoprudente.blogspot.com para o formato github.io para usar Markdown e versionar.&lt;/p&gt;
+
+&lt;p&gt;Mais noticias a vir!&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>
