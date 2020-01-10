@@ -4,7 +4,7 @@
   
   <url>
     <loc>/en/categories/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -18,17 +18,122 @@
   </url>
   
   <url>
-    <loc>/en/tags/devops/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
+    <loc>/en/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="/pt/tags/devops/"
+                href="/pt/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/en/tags/devops/"
+                href="/en/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/tags/linux/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/linux/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/linux/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/posts/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/categories/sysadmin/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/categories/sysadmin/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/categories/sysadmin/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/tags/sysadmin/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/sysadmin/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/sysadmin/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/tags/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/2020/01/the-fastest-way-to-remove-huge-number-of-files/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/2020/01/a-maneira-mais-r%C3%A1pida-de-deletar-um-grande-n%C3%BAmero-arquivos/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/2020/01/the-fastest-way-to-remove-huge-number-of-files/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/tags/tools/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/tools/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/tools/"
                 />
   </url>
   
@@ -48,6 +153,21 @@
   </url>
   
   <url>
+    <loc>/en/tags/devops/</loc>
+    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/devops/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/devops/"
+                />
+  </url>
+  
+  <url>
     <loc>/en/tags/frameworks/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -63,66 +183,6 @@
   </url>
   
   <url>
-    <loc>/en/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/"
-                />
-  </url>
-  
-  <url>
-    <loc>/en/posts/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/posts/"
-                />
-  </url>
-  
-  <url>
-    <loc>/en/categories/sysadmin/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/categories/sysadmin/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/categories/sysadmin/"
-                />
-  </url>
-  
-  <url>
-    <loc>/en/tags/sysadmin/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/sysadmin/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/sysadmin/"
-                />
-  </url>
-  
-  <url>
     <loc>/en/2019/12/sysadmin-devops-toos-and-frameworks/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -134,36 +194,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="/en/2019/12/sysadmin-devops-toos-and-frameworks/"
-                />
-  </url>
-  
-  <url>
-    <loc>/en/tags/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/"
-                />
-  </url>
-  
-  <url>
-    <loc>/en/tags/tools/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/tools/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/tools/"
                 />
   </url>
   

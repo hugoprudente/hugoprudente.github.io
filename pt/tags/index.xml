@@ -7,10 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>MIT License</copyright>
-    <lastBuildDate>Thu, 05 Dec 2019 02:21:55 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jan 2020 10:38:03 +0000</lastBuildDate>
     
 	<atom:link href="/pt/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux</title>
+      <link>/pt/tags/linux/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>/pt/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SysAdmin</title>
+      <link>/pt/tags/sysadmin/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>/pt/tags/sysadmin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>/pt/tags/tools/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>/pt/tags/tools/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>DevOps</title>
@@ -27,24 +54,6 @@
       <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
       
       <guid>/pt/tags/frameworks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SysAdmin</title>
-      <link>/pt/tags/sysadmin/</link>
-      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
-      
-      <guid>/pt/tags/sysadmin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tools</title>
-      <link>/pt/tags/tools/</link>
-      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
-      
-      <guid>/pt/tags/tools/</guid>
       <description></description>
     </item>
     

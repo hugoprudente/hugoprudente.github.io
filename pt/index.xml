@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>MIT License</copyright>
-    <lastBuildDate>Thu, 05 Dec 2019 02:21:55 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jan 2020 10:38:03 +0000</lastBuildDate>
     
 	<atom:link href="/pt/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A maneira mais rápida de deletar um grande número arquivos</title>
+      <link>/pt/2020/01/a-maneira-mais-r%C3%A1pida-de-deletar-um-grande-n%C3%BAmero-arquivos/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>/pt/2020/01/a-maneira-mais-r%C3%A1pida-de-deletar-um-grande-n%C3%BAmero-arquivos/</guid>
+      <description>Muitos anos atrás, devido a um erro no código da aplicação que trabalhavamos acabamos gerando aproximadamente 10 milhões de arquivos, acabando com os inodes do sistema. Devido aquele servidor não ter alta disponibilidade no momento fui a procura do ganso dos ovos de ouro e achei isso aqui.
+Infelizmente o artigo original não está mais disponível, mas desse em dia em diante rsync é minha ferramenta principal de destruição em massa!</description>
+    </item>
     
     <item>
       <title>Sysadmin Devops Toos and Frameworks</title>
