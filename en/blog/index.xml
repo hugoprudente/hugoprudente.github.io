@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hugo Prudente</title>
-    <link>https://hugoprudente.github.io/en/</link>
-    <description>Recent content on Hugo Prudente</description>
+    <title>Blogs on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/en/blog/</link>
+    <description>Recent content in Blogs on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 10 Jan 2020 10:38:03 +0000</lastBuildDate>
     
-	<atom:link href="https://hugoprudente.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://hugoprudente.github.io/en/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

@@ -3,197 +3,62 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/pt/2020/01/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/</loc>
+    <loc>https://hugoprudente.github.io/pt/blog/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/en/2020/01/the-fastest-wayt-to-remove-huge-number-of-files/"
+                href="https://hugoprudente.github.io/en/blog/the-fastest-wayt-to-remove-huge-number-of-files/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="/pt/2020/01/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/"
+                href="https://hugoprudente.github.io/pt/blog/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/"
                 />
   </url>
   
   <url>
-    <loc>/pt/categories/</loc>
+    <loc>https://hugoprudente.github.io/pt/blog/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/en/categories/"
+                href="https://hugoprudente.github.io/en/blog/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="/pt/categories/"
+                href="https://hugoprudente.github.io/pt/blog/"
                 />
   </url>
   
   <url>
-    <loc>/pt/</loc>
+    <loc>https://hugoprudente.github.io/pt/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/en/"
+                href="https://hugoprudente.github.io/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="/pt/"
+                href="https://hugoprudente.github.io/pt/"
                 />
   </url>
   
   <url>
-    <loc>/pt/tags/linux/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/linux/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/linux/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/posts/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/posts/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/categories/sysadmin/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/categories/sysadmin/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/categories/sysadmin/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/tags/sysadmin/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/sysadmin/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/sysadmin/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/tags/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/tags/tools/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/tools/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/tools/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/categories/devops/</loc>
+    <loc>https://hugoprudente.github.io/pt/blog/sysadmin-devops-toos-and-frameworks/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/en/categories/devops/"
+                href="https://hugoprudente.github.io/en/blog/sysadmin-devops-toos-and-frameworks/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
-                href="/pt/categories/devops/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/tags/devops/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/devops/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/devops/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/tags/frameworks/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/frameworks/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/frameworks/"
-                />
-  </url>
-  
-  <url>
-    <loc>/pt/2019/12/sysadmin-devops-toos-and-frameworks/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/2019/12/sysadmin-devops-toos-and-frameworks/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/2019/12/sysadmin-devops-toos-and-frameworks/"
+                href="https://hugoprudente.github.io/pt/blog/sysadmin-devops-toos-and-frameworks/"
                 />
   </url>
   
