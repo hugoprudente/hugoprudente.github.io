@@ -78,21 +78,6 @@
   </url>
   
   <url>
-    <loc>/pt/tags/sysadmin/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="/en/tags/sysadmin/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="/pt/tags/sysadmin/"
-                />
-  </url>
-  
-  <url>
     <loc>/pt/categories/sysadmin/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
@@ -104,6 +89,21 @@
                 rel="alternate"
                 hreflang="pt"
                 href="/pt/categories/sysadmin/"
+                />
+  </url>
+  
+  <url>
+    <loc>/pt/tags/sysadmin/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/sysadmin/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/sysadmin/"
                 />
   </url>
   
