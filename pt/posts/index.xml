@@ -11,10 +11,10 @@
         
         <item>
             <title>A maneira mais rápida de deletar um grande número arquivos</title>
-            <link>/pt/2020/01/a-maneira-mais-r%C3%A1pida-de-deletar-um-grande-n%C3%BAmero-arquivos/</link>
+            <link>/pt/2020/01/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/</link>
             <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
             
-            <guid>/pt/2020/01/a-maneira-mais-r%C3%A1pida-de-deletar-um-grande-n%C3%BAmero-arquivos/</guid>
+            <guid>/pt/2020/01/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/</guid>
             <description>Muitos anos atrás, devido a um erro no código da aplicação que trabalhavamos acabamos gerando aproximadamente 10 milhões de arquivos, acabando com os inodes do sistema. Devido aquele servidor não ter alta disponibilidade no momento fui a procura do ganso dos ovos de ouro e achei isso aqui.
 Infelizmente o artigo original não está mais disponível, mas desse em dia em diante rsync é minha ferramenta principal de destruição em massa!</description>
             <content type="html"><![CDATA[<p>Muitos anos atrás, devido a um erro no código da aplicação que trabalhavamos acabamos gerando aproximadamente 10 milhões de arquivos, acabando com os <code>inodes</code> do sistema. Devido aquele servidor não ter alta disponibilidade no momento fui a procura do ganso dos ovos de ouro e achei isso aqui.</p>

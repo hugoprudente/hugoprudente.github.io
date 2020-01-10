@@ -11,10 +11,10 @@
         
         <item>
             <title>The Fastest Way to Remove Huge Number of Files</title>
-            <link>/en/2020/01/the-fastest-way-to-remove-huge-number-of-files/</link>
+            <link>/en/2020/01/the-fastest-wayt-to-remove-huge-number-of-files/</link>
             <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
             
-            <guid>/en/2020/01/the-fastest-way-to-remove-huge-number-of-files/</guid>
+            <guid>/en/2020/01/the-fastest-wayt-to-remove-huge-number-of-files/</guid>
             <description>Several year ago, due to a code issue the application that I was working with wrote more than 10 millions files, exhausting all the inodes of the system. Due to that server not having replication at the time I went searching for the golden goose of the file deletion, and ended finding this.
 Sadly the original article is not available anymore, but from that time now rsync is my mainly mass destruction tool!</description>
             <content type="html"><![CDATA[<p>Several year ago, due to a code issue the application that I was working with wrote more than 10 millions files, exhausting all the <code>inodes</code> of the system. Due to that server not having replication at the time I went searching for the golden goose of the file deletion, and ended finding this.</p>
