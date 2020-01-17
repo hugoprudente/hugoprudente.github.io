@@ -5,10 +5,19 @@
     <link>https://hugoprudente.github.io/pt/</link>
     <description>Recent content on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 10 Jan 2020 10:38:03 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 16:48:29 +0000</lastBuildDate>
     
 	<atom:link href="https://hugoprudente.github.io/pt/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Aprendendo a Codar e Desafio de 100 Days of Code</title>
+      <link>https://hugoprudente.github.io/pt/blog/learning-to-code-and-100-days-of-code-challenge.en.md/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/pt/blog/learning-to-code-and-100-days-of-code-challenge.en.md/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>A maneira mais rápida de deletar um grande número arquivos</title>

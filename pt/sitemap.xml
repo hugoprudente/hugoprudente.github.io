@@ -3,23 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://hugoprudente.github.io/pt/blog/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/blog/the-fastest-wayt-to-remove-huge-number-of-files/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://hugoprudente.github.io/pt/blog/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/"
-                />
+    <loc>https://hugoprudente.github.io/pt/blog/learning-to-code-and-100-days-of-code-challenge.en.md/</loc>
+    <lastmod>2020-01-17T16:48:29+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://hugoprudente.github.io/pt/blog/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <lastmod>2020-01-17T16:48:29+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -34,7 +24,7 @@
   
   <url>
     <loc>https://hugoprudente.github.io/pt/</loc>
-    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <lastmod>2020-01-17T16:48:29+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,6 +34,21 @@
                 rel="alternate"
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://hugoprudente.github.io/pt/blog/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/</loc>
+    <lastmod>2020-01-10T10:38:03+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/blog/the-fastest-wayt-to-remove-huge-number-of-files/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://hugoprudente.github.io/pt/blog/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/"
                 />
   </url>
   
