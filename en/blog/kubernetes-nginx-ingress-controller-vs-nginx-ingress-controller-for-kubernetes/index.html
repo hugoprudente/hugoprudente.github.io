@@ -5,10 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Hugo Prudente ">
-<meta name="description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx, what have being some confusion.
+<meta name="description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
-The cause of the tag not working is the the ingres-controller being used is not the one that support that tag.
-It&#39;s quite common using google.com to search for it and you can hit 2 projects using the keywords &amp;ldquo;kuberentes ingress controller&amp;rdquo;:" />
+The cause of the not working tag is the the ingres-controller being used. Let me clarify!
+Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
+ NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:" />
 <meta name="keywords" content="blog, programming, devops, sysadmin, security, automation, aws" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
@@ -34,13 +35,14 @@ It&#39;s quite common using google.com to search for it and you can hit 2 projec
 
 
 <meta itemprop="name" content="Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes">
-<meta itemprop="description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx, what have being some confusion.
+<meta itemprop="description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
-The cause of the tag not working is the the ingres-controller being used is not the one that support that tag.
-It&#39;s quite common using google.com to search for it and you can hit 2 projects using the keywords &ldquo;kuberentes ingress controller&rdquo;:">
+The cause of the not working tag is the the ingres-controller being used. Let me clarify!
+Commonly we go to google.com and search for the key works &ldquo;kuberentes ingress controller&rdquo;, this will return two oficial projects, by different companies.
+ NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:">
 <meta itemprop="datePublished" content="2020-01-21T21:23:25&#43;00:00" />
 <meta itemprop="dateModified" content="2020-01-21T21:23:25&#43;00:00" />
-<meta itemprop="wordCount" content="485">
+<meta itemprop="wordCount" content="482">
 <meta itemprop="image" content="https://hugoprudente.github.io"/>
 
 
@@ -49,10 +51,11 @@ It&#39;s quite common using google.com to search for it and you can hit 2 projec
 <meta name="twitter:image" content="https://hugoprudente.github.io"/>
 
 <meta name="twitter:title" content="Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes"/>
-<meta name="twitter:description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx, what have being some confusion.
+<meta name="twitter:description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
-The cause of the tag not working is the the ingres-controller being used is not the one that support that tag.
-It&#39;s quite common using google.com to search for it and you can hit 2 projects using the keywords &ldquo;kuberentes ingress controller&rdquo;:"/>
+The cause of the not working tag is the the ingres-controller being used. Let me clarify!
+Commonly we go to google.com and search for the key works &ldquo;kuberentes ingress controller&rdquo;, this will return two oficial projects, by different companies.
+ NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:"/>
 
 
 
@@ -129,13 +132,13 @@ It&#39;s quite common using google.com to search for it and you can hit 2 projec
             
 
             <div class="post-content">
-                <p>Quite often I'm seeing people having trouble using the <strong>Kubernetes Ingress Controller</strong> featuring <strong>Nginx</strong>, what have being some confusion.</p>
+                <p>Quite often I'm seeing people having trouble using the <strong>Kubernetes Ingress Controller</strong> featuring <strong>Nginx</strong>.</p>
 <p>The principal issue reported by the community is the annotation <code>nginx.ingress.kubernetes.io/rewrite-target: /</code> not working.</p>
-<p>The cause of the <em>tag</em> not working is the the <code>ingres-controller</code> being used is not the one that support that tag.</p>
-<p>It's quite common using google.com to search for it and you can hit 2 projects using the keywords &ldquo;kuberentes ingress controller&rdquo;:</p>
+<p>The cause of the not working <em>tag</em> is the the <code>ingres-controller</code> being used. Let me clarify!</p>
+<p>Commonly we go to <code>google.com</code> and search for the key works &ldquo;kuberentes ingress controller&rdquo;, this will return two <strong>oficial</strong> projects, by different companies.</p>
 <ul>
-<li><a href="https://docs.nginx.com/nginx-ingress-controller/">NGINX Ingress Controller for Kubernetes</a></li>
-<li><a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a></li>
+<li><a href="https://docs.nginx.com/nginx-ingress-controller/">NGINX Ingress Controller for Kubernetes</a> by NGINX</li>
+<li><a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a> by Kubernetes (Google)</li>
 </ul>
 <p>During the troubleshoot the first thing that we must define is which <code>ingress-controller</code> for <strong>Nginx</strong> is being used:</p>
 <p>With <strong>helm</strong> we can check from the repository that it was installed from:</p>
@@ -153,8 +156,8 @@ https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1  
 <pre><code>○ → kubectl describe deployment  | grep Image
     Image:       quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.27.1
     Image:       nginx/nginx-ingress:1.6.1
-</code></pre><p>From the [<a href="https://github.com/nginxinc/kubernetes-ingress/">https://github.com/nginxinc/kubernetes-ingress/</a>](NGINX Ingress Controller for Kubernetes), GitHub page we can confirm the ownership of the image <strong>nginx-ingress:1.6.1</strong>.</p>
-<p>From the [<a href="https://github.com/kubernetes/ingress-nginx/">https://github.com/kubernetes/ingress-nginx/</a>](Kubernetes Nginx Ingress Controller), GitHub page we can also confirm that the ownership of image <strong>nginx-ingress-controller:0.27.1</strong>.</p>
+</code></pre><p>From the <a href="https://github.com/nginxinc/kubernetes-ingress/">NGINX Ingress Controller for Kubernetes</a>, GitHub page we can confirm the ownership of the image <strong>nginx-ingress:1.6.1</strong>.</p>
+<p>From the <a href="https://github.com/kubernetes/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>, GitHub page we can also confirm that the ownership of image <strong>nginx-ingress-controller:0.27.1</strong>.</p>
 <p>Now that we defined the used project we can move forward with it's configuration:</p>
 <h1 id="nginx-ingress-controller-for-kubernetes">NGINX Ingress Controller for Kubernetes</h1>
 <p>Maintained by NGINX the documentation can be found here on <a href="https://docs.nginx.com/nginx-ingress-controller/">Nginx Ingress Controller for Kubernetes</a>:</p>

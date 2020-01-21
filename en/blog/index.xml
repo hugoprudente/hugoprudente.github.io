@@ -16,10 +16,11 @@
       <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
       
       <guid>https://hugoprudente.github.io/en/blog/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</guid>
-      <description>Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx, what have being some confusion.
+      <description>Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
-The cause of the tag not working is the the ingres-controller being used is not the one that support that tag.
-It&#39;s quite common using google.com to search for it and you can hit 2 projects using the keywords &amp;ldquo;kuberentes ingress controller&amp;rdquo;:</description>
+The cause of the not working tag is the the ingres-controller being used. Let me clarify!
+Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
+ NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
     </item>
     
     <item>
