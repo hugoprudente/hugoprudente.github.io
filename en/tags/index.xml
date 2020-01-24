@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/en/tags/</link>
+    <description>Recent content in Tags on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate>
+    
+	<atom:link href="https://hugoprudente.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Containers</title>
+      <link>https://hugoprudente.github.io/en/tags/containers/</link>
+      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/containers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Google</title>
+      <link>https://hugoprudente.github.io/en/tags/google/</link>
+      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/google/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kuberentes</title>
+      <link>https://hugoprudente.github.io/en/tags/kuberentes/</link>
+      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/kuberentes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx</title>
+      <link>https://hugoprudente.github.io/en/tags/nginx/</link>
+      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bash</title>
+      <link>https://hugoprudente.github.io/en/tags/bash/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C</title>
+      <link>https://hugoprudente.github.io/en/tags/c/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://hugoprudente.github.io/en/tags/c&#43;&#43;/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DotNet</title>
+      <link>https://hugoprudente.github.io/en/tags/dotnet/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/dotnet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GoLang</title>
+      <link>https://hugoprudente.github.io/en/tags/golang/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java</title>
+      <link>https://hugoprudente.github.io/en/tags/java/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://hugoprudente.github.io/en/tags/javascript/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NodeJS</title>
+      <link>https://hugoprudente.github.io/en/tags/nodejs/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/nodejs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PHP</title>
+      <link>https://hugoprudente.github.io/en/tags/php/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://hugoprudente.github.io/en/tags/python/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ruby</title>
+      <link>https://hugoprudente.github.io/en/tags/ruby/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://hugoprudente.github.io/en/tags/rust/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://hugoprudente.github.io/en/tags/linux/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tools</title>
+      <link>https://hugoprudente.github.io/en/tags/tools/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>https://hugoprudente.github.io/en/tags/unix/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/unix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Backups</title>
+      <link>https://hugoprudente.github.io/en/tags/backups/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/backups/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Books</title>
+      <link>https://hugoprudente.github.io/en/tags/books/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/books/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloning</title>
+      <link>https://hugoprudente.github.io/en/tags/cloning/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/cloning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Code Review</title>
+      <link>https://hugoprudente.github.io/en/tags/code-review/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/code-review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Collaborative Software</title>
+      <link>https://hugoprudente.github.io/en/tags/collaborative-software/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/collaborative-software/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Communication</title>
+      <link>https://hugoprudente.github.io/en/tags/communication/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/communication/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Computing</title>
+      <link>https://hugoprudente.github.io/en/tags/computing/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/computing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Configuration Management</title>
+      <link>https://hugoprudente.github.io/en/tags/configuration-management/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/configuration-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Configuration Management Database</title>
+      <link>https://hugoprudente.github.io/en/tags/configuration-management-database/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/configuration-management-database/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Continuous Integration &amp; Continuous Deployment (CICD)</title>
+      <link>https://hugoprudente.github.io/en/tags/continuous-integration-continuous-deployment-cicd/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/continuous-integration-continuous-deployment-cicd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Control Panel</title>
+      <link>https://hugoprudente.github.io/en/tags/control-panel/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/control-panel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Distributed Filesystem</title>
+      <link>https://hugoprudente.github.io/en/tags/distributed-filesystem/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/distributed-filesystem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DNS</title>
+      <link>https://hugoprudente.github.io/en/tags/dns/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/dns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Editors</title>
+      <link>https://hugoprudente.github.io/en/tags/editors/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/editors/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTTP</title>
+      <link>https://hugoprudente.github.io/en/tags/http/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IMAP/POP3</title>
+      <link>https://hugoprudente.github.io/en/tags/imap/pop3/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/imap/pop3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IT Asset Management</title>
+      <link>https://hugoprudente.github.io/en/tags/it-asset-management/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/it-asset-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LDAP</title>
+      <link>https://hugoprudente.github.io/en/tags/ldap/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/ldap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Log Management</title>
+      <link>https://hugoprudente.github.io/en/tags/log-management/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/log-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Metric &amp; Metric Collection</title>
+      <link>https://hugoprudente.github.io/en/tags/metric-metric-collection/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/metric-metric-collection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Monitoring</title>
+      <link>https://hugoprudente.github.io/en/tags/monitoring/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/monitoring/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Network Configuration Management</title>
+      <link>https://hugoprudente.github.io/en/tags/network-configuration-management/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/network-configuration-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>News Letter</title>
+      <link>https://hugoprudente.github.io/en/tags/news-letter/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/news-letter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NOSQL</title>
+      <link>https://hugoprudente.github.io/en/tags/nosql/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/nosql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Orchestration</title>
+      <link>https://hugoprudente.github.io/en/tags/orchestration/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/orchestration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Packaging</title>
+      <link>https://hugoprudente.github.io/en/tags/packaging/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/packaging/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Project Management</title>
+      <link>https://hugoprudente.github.io/en/tags/project-management/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/project-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Queueing</title>
+      <link>https://hugoprudente.github.io/en/tags/queueing/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/queueing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RDBMS</title>
+      <link>https://hugoprudente.github.io/en/tags/rdbms/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/rdbms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Repositories</title>
+      <link>https://hugoprudente.github.io/en/tags/repositories/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/repositories/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://hugoprudente.github.io/en/tags/security/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Service Discovery</title>
+      <link>https://hugoprudente.github.io/en/tags/service-discovery/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/service-discovery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SMTP</title>
+      <link>https://hugoprudente.github.io/en/tags/smtp/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/smtp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSH</title>
+      <link>https://hugoprudente.github.io/en/tags/ssh/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Statistics</title>
+      <link>https://hugoprudente.github.io/en/tags/statistics/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/statistics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Storage</title>
+      <link>https://hugoprudente.github.io/en/tags/storage/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/storage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ticketing System</title>
+      <link>https://hugoprudente.github.io/en/tags/ticketing-system/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/ticketing-system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Troubleshoot</title>
+      <link>https://hugoprudente.github.io/en/tags/troubleshoot/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/troubleshoot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Version Control</title>
+      <link>https://hugoprudente.github.io/en/tags/version-control/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/version-control/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Virtualization</title>
+      <link>https://hugoprudente.github.io/en/tags/virtualization/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/virtualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VPN</title>
+      <link>https://hugoprudente.github.io/en/tags/vpn/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/vpn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web Emails</title>
+      <link>https://hugoprudente.github.io/en/tags/web-emails/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/web-emails/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Wikis</title>
+      <link>https://hugoprudente.github.io/en/tags/wikis/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/wikis/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

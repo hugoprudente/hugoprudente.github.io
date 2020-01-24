@@ -12,10 +12,10 @@
     
     <item>
       <title>Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</title>
-      <link>https://hugoprudente.github.io/en/blog/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</link>
+      <link>https://hugoprudente.github.io/en/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</link>
       <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
       
-      <guid>https://hugoprudente.github.io/en/blog/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</guid>
+      <guid>https://hugoprudente.github.io/en/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</guid>
       <description>Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
@@ -25,30 +25,30 @@ Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes 
     
     <item>
       <title>Learning to code and 100 Days Of Code Challenge</title>
-      <link>https://hugoprudente.github.io/en/blog/learning-to-code-and-100-days-of-code-challenge.en.md/</link>
+      <link>https://hugoprudente.github.io/en/posts/learning-to-code-and-100-days-of-code-challenge/</link>
       <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
       
-      <guid>https://hugoprudente.github.io/en/blog/learning-to-code-and-100-days-of-code-challenge.en.md/</guid>
+      <guid>https://hugoprudente.github.io/en/posts/learning-to-code-and-100-days-of-code-challenge/</guid>
       <description>During my career coding was always a strongly present on my roles, and this was always one of my strongest points. Back in the day knowing tools were a little bit more hard, what have caused some wheels to be reinvented like my own in-house Zabbix, master-agent monitoring tool that I even deployed to 500 machines around the whole country (Brazil).
 My role was always to consolidate the infrastructure and application and make them work as healthy as possible with less effort as possible as for a really long time the team was &amp;ldquo;me and myself&amp;rdquo;.</description>
     </item>
     
     <item>
       <title>The Fastest Way to Remove Huge Number of Files</title>
-      <link>https://hugoprudente.github.io/en/blog/the-fastest-wayt-to-remove-huge-number-of-files/</link>
+      <link>https://hugoprudente.github.io/en/posts/the-fastest-way-to-remove-huge-number-of-files/</link>
       <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
       
-      <guid>https://hugoprudente.github.io/en/blog/the-fastest-wayt-to-remove-huge-number-of-files/</guid>
+      <guid>https://hugoprudente.github.io/en/posts/the-fastest-way-to-remove-huge-number-of-files/</guid>
       <description>Several year ago, due to a code issue the application that I was working with wrote more than 10 millions files, exhausting all the inodes of the system. Due to that server not having replication at the time I went searching for the golden goose of the file deletion, and ended finding this.
 Sadly the original article is not available anymore, but from that time now rsync is my mainly mass destruction tool!</description>
     </item>
     
     <item>
-      <title>Sysadmin Devops Toos and Frameworks</title>
-      <link>https://hugoprudente.github.io/en/blog/sysadmin-devops-toos-and-frameworks/</link>
+      <title>Sysadmin Devops Tools and Frameworks</title>
+      <link>https://hugoprudente.github.io/en/posts/sysadmin-devops-tools-and-frameworks/</link>
       <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
       
-      <guid>https://hugoprudente.github.io/en/blog/sysadmin-devops-toos-and-frameworks/</guid>
+      <guid>https://hugoprudente.github.io/en/posts/sysadmin-devops-tools-and-frameworks/</guid>
       <description>How hard is to you SysAdmin/DevOps to keep track of all the tools, platforms and frameworks available on the market?
 3 years ago, Jeferson Norona #LinuxTips (VAI), posted on his personal page about a project responsible to gather all those tools and frameworks and consolidate it, to our life of SysAdmins/DevOps easier.
 The project was created by Alen Krmelj and it&#39;s awesome!

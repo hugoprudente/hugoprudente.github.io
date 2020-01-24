@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NodeJS on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/en/tags/nodejs/</link>
+    <description>Recent content in NodeJS on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 17 Jan 2020 16:48:29 +0000</lastBuildDate>
+    
+	<atom:link href="https://hugoprudente.github.io/en/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Learning to code and 100 Days Of Code Challenge</title>
+      <link>https://hugoprudente.github.io/en/posts/learning-to-code-and-100-days-of-code-challenge/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/posts/learning-to-code-and-100-days-of-code-challenge/</guid>
+      <description>During my career coding was always a strongly present on my roles, and this was always one of my strongest points. Back in the day knowing tools were a little bit more hard, what have caused some wheels to be reinvented like my own in-house Zabbix, master-agent monitoring tool that I even deployed to 500 machines around the whole country (Brazil).
+My role was always to consolidate the infrastructure and application and make them work as healthy as possible with less effort as possible as for a really long time the team was &amp;ldquo;me and myself&amp;rdquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

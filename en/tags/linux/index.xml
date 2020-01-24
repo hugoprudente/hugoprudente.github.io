@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/en/tags/linux/</link>
+    <description>Recent content in Linux on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 10 Jan 2020 10:38:03 +0000</lastBuildDate>
+    
+	<atom:link href="https://hugoprudente.github.io/en/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Fastest Way to Remove Huge Number of Files</title>
+      <link>https://hugoprudente.github.io/en/posts/the-fastest-way-to-remove-huge-number-of-files/</link>
+      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/posts/the-fastest-way-to-remove-huge-number-of-files/</guid>
+      <description>Several year ago, due to a code issue the application that I was working with wrote more than 10 millions files, exhausting all the inodes of the system. Due to that server not having replication at the time I went searching for the golden goose of the file deletion, and ended finding this.
+Sadly the original article is not available anymore, but from that time now rsync is my mainly mass destruction tool!</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DNS on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/en/tags/dns/</link>
+    <description>Recent content in DNS on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 05 Dec 2019 02:21:55 +0000</lastBuildDate>
+    
+	<atom:link href="https://hugoprudente.github.io/en/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sysadmin Devops Tools and Frameworks</title>
+      <link>https://hugoprudente.github.io/en/posts/sysadmin-devops-tools-and-frameworks/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/posts/sysadmin-devops-tools-and-frameworks/</guid>
+      <description>How hard is to you SysAdmin/DevOps to keep track of all the tools, platforms and frameworks available on the market?
+3 years ago, Jeferson Norona #LinuxTips (VAI), posted on his personal page about a project responsible to gather all those tools and frameworks and consolidate it, to our life of SysAdmins/DevOps easier.
+The project was created by Alen Krmelj and it&#39;s awesome!
+http://sysadmin.it-landscape.info/</description>
+    </item>
+    
+  </channel>
+</rss>

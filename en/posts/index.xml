@@ -1,0 +1,417 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Hugo Prudente</title>
+        <link>https://hugoprudente.github.io/en/posts/</link>
+        <description>Recent content in Posts on Hugo Prudente</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate>
+        <atom:link href="https://hugoprudente.github.io/en/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</title>
+            <link>https://hugoprudente.github.io/en/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</link>
+            <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+            
+            <guid>https://hugoprudente.github.io/en/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</guid>
+            <description>Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
+The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
+The cause of the not working tag is the the ingres-controller being used. Let me clarify!
+Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
+ NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
+            <content type="html"><![CDATA[<p>Quite often I'm seeing people having trouble using the <strong>Kubernetes Ingress Controller</strong> featuring <strong>Nginx</strong>.</p>
+<p>The principal issue reported by the community is the annotation <code>nginx.ingress.kubernetes.io/rewrite-target: /</code> not working.</p>
+<p>The cause of the not working <em>tag</em> is the the <code>ingres-controller</code> being used. Let me clarify!</p>
+<p>Commonly we go to <code>google.com</code> and search for the key works &ldquo;kuberentes ingress controller&rdquo;, this will return two <strong>oficial</strong> projects, by different companies.</p>
+<ul>
+<li><a href="https://docs.nginx.com/nginx-ingress-controller/">NGINX Ingress Controller for Kubernetes</a> by NGINX</li>
+<li><a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a> by Kubernetes (Google)</li>
+</ul>
+<p>During the troubleshoot the first thing that we must define is which <code>ingress-controller</code> for <strong>Nginx</strong> is being used:</p>
+<p>With <strong>helm</strong> we can check from the repository that it was installed from:</p>
+<p>Provided by NGINX</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">○ → helm repo add nginx-stable https://helm.nginx.com/stable
+○ → helm search hub nginx-ingress
+URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
+https://hub.helm.sh/charts/nginx/nginx-ingress          0.4.1           1.6.1           NGINX Ingress Controller                          
+</code></pre></div><p>Provided by Kubernetes</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">○ → helm repo add stable https://kubernetes-charts.storage.googleapis.com
+○ → helm search hub nginx-ingress
+URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
+https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1          An nginx Ingress controller that uses ConfigMap...
+</code></pre></div><p>Alternatively if the solution was not deployed using <strong>Helm</strong> you can define the origin of the <code>ingres-controller</code> project by check the container image using the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">○ → kubectl describe deployment  | grep Image
+    Image:       quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.27.1
+    Image:       nginx/nginx-ingress:1.6.1
+</code></pre></div><p>From the <a href="https://github.com/nginxinc/kubernetes-ingress/">NGINX Ingress Controller for Kubernetes</a>, GitHub page we can confirm the ownership of the image <strong>nginx-ingress:1.6.1</strong>.</p>
+<p>From the <a href="https://github.com/kubernetes/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>, GitHub page we can also confirm that the ownership of image <strong>nginx-ingress-controller:0.27.1</strong>.</p>
+<p>Now that we defined the used project we can move forward with it's configuration:</p>
+<h1 id="nginx-ingress-controller-for-kubernetes">NGINX Ingress Controller for Kubernetes</h1>
+<p>Maintained by NGINX the documentation can be found here on <a href="https://docs.nginx.com/nginx-ingress-controller/">Nginx Ingress Controller for Kubernetes</a>:</p>
+<p>The tags for the this projects are <code>nginx.org</code> and <code>nginx.com</code> for the paid extra features.</p>
+<p>Examples exploring the features of this project can be found here on the <a href="https://github.com/nginxinc/kubernetes-ingress/tree/v1.6.1/examples">GitHub</a></p>
+<p>Example for rewrite feature:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+  annotations:
+    nginx.org/rewrites: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
+spec:
+  rules:
+  - host: cafe.example.com
+    http:
+      paths:
+      - path: /tea/
+        backend:
+          serviceName: tea-svc
+          servicePort: <span style="color:#ae81ff">80</span>
+</code></pre></div><h1 id="kubernetes-nginx-ingress-controller">Kubernetes NGINX Ingress Controller</h1>
+<p>Maintained by the Kubernetes community, the documentation can be found her on <a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>:</p>
+<p>The tags for this project is <code>nginx.ingress.kubernetes.io/</code> and has no extra features.</p>
+<p>Examples exploring the features of this project can be found here on the <a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples">GitHub</a></p>
+<p>Example for rewrite feature:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /tea
+        backend:
+          serviceName: tea-svc
+          servicePort: <span style="color:#ae81ff">80</span>
+</code></pre></div><hr>
+<p>The projects are a couple months difference from each other and there's no clear explanation on why the Kuberenetes Ingress Controller had chosen that exactly name as the NGINX one were already being maintained.</p>
+<p>On summary the names are quite similar and on a Bag of Words they could be even considered the same, so we need to be alert to not deploy <em>bananas</em> thinking that they are <em>apples</em></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Learning to code and 100 Days Of Code Challenge</title>
+            <link>https://hugoprudente.github.io/en/posts/learning-to-code-and-100-days-of-code-challenge/</link>
+            <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+            
+            <guid>https://hugoprudente.github.io/en/posts/learning-to-code-and-100-days-of-code-challenge/</guid>
+            <description>During my career coding was always a strongly present on my roles, and this was always one of my strongest points. Back in the day knowing tools were a little bit more hard, what have caused some wheels to be reinvented like my own in-house Zabbix, master-agent monitoring tool that I even deployed to 500 machines around the whole country (Brazil).
+My role was always to consolidate the infrastructure and application and make them work as healthy as possible with less effort as possible as for a really long time the team was &amp;ldquo;me and myself&amp;rdquo;.</description>
+            <content type="html"><![CDATA[<p>During my career <code>coding</code> was always a strongly present on my roles, and this was always one of my strongest points. Back in the day knowing tools were a little bit more hard, what have caused some wheels to be reinvented like my own in-house Zabbix, master-agent monitoring tool that I even deployed to 500 machines around the whole country (Brazil).</p>
+<p>My role was always to consolidate the infrastructure and application and make them work as healthy as possible with less effort as possible as for a really long time the team was &ldquo;me and myself&rdquo;.</p>
+<p>During my journey I have learned, coded, and delivered projects the following programming languages.</p>
+<ul>
+<li>C</li>
+<li>Bash</li>
+<li>PHP</li>
+<li>JavaScript</li>
+<li>Java</li>
+<li>C++</li>
+<li>Python</li>
+<li>.NET</li>
+<li>Perl</li>
+<li>Python</li>
+<li>Android</li>
+<li>Ruby</li>
+<li>NodeJS</li>
+</ul>
+<p>And on the last couple years on my actual job I have also included <code>Go</code> and <code>Rust</code> to my knowledge center and kept exercising some of the languages above.</p>
+<p>The biggest problem on this is &ldquo;how to keep sharp&rdquo; on the languages when you need them or at least remember enough to not spend a ridiculous amount of time trying to figure out how the basic things works again and I'm facing this now, getting back to <code>Java</code>.</p>
+<p>My last official project with <code>java</code> was a really long time ago, and as I didn't had any solid project that would take advantage of the language, so <code>java</code> ended on a black hole.</p>
+<p>The year changed and I decided to invest more time re-learn <code>java</code>, as it is heavily used by the company and this can give me more broad directions for short and long term on my career goals.</p>
+<h3 id="but-how">But how?</h3>
+<p>Yes that was the really problem! Organizing time and a routine that could keep me on track and do not jeopardize the other things that I need daily to keep sharp.</p>
+<h3 id="100-days-of-code">100 Days Of Code!</h3>
+<p>On twitter several of my followers joined the challenge to learn and study a new topic and I tough that it was a really good way to help me improve and create a routine, but I had faced another issue.</p>
+<h3 id="what-do-i-do-every-day-to-100-days">What do I do every day to 100 days?</h3>
+<p>Yeah, not everyone has projects and ideas that can work, even more if you have an strict contract, so everything needs to be really precise to not create chaos.</p>
+<p>So 3 days ago I have created my own <a href="https://github.com/hugoprudente/100-days-of-code">repo</a> and was ready to start, but:</p>
+<ul>
+<li>What should I code?</li>
+<li>How can I get back to the track?</li>
+</ul>
+<h3 id="the-trick">The trick</h3>
+<p>I have added 1 strict rule that is <strong>&ldquo;NO IDE&rdquo;</strong>, yes, the idea is to do <code>java</code> on vim reading the documentation as much as possible, over stack overflow.</p>
+<p>As I'm really rust I'm getting all that I can from the following content providers.</p>
+<ul>
+<li><a href="https://www.spoj.com/problems/classical/"><a href="https://www.spoj.com/problems/classical/">https://www.spoj.com/problems/classical/</a></a></li>
+<li><a href="https://exercism.io/my/tracks"><a href="https://exercism.io/my/tracks">https://exercism.io/my/tracks</a></a></li>
+<li><a href="https://leetcode.com/"><a href="https://leetcode.com/">https://leetcode.com/</a></a></li>
+<li><a href="https://www.hackerrank.com/"><a href="https://www.hackerrank.com/">https://www.hackerrank.com/</a></a></li>
+</ul>
+<p>So let's see how it goes! My first commit is up!</p>
+<p>See you all later!</p>
+<p>#VAIIII</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>The Fastest Way to Remove Huge Number of Files</title>
+            <link>https://hugoprudente.github.io/en/posts/the-fastest-way-to-remove-huge-number-of-files/</link>
+            <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
+            
+            <guid>https://hugoprudente.github.io/en/posts/the-fastest-way-to-remove-huge-number-of-files/</guid>
+            <description>Several year ago, due to a code issue the application that I was working with wrote more than 10 millions files, exhausting all the inodes of the system. Due to that server not having replication at the time I went searching for the golden goose of the file deletion, and ended finding this.
+Sadly the original article is not available anymore, but from that time now rsync is my mainly mass destruction tool!</description>
+            <content type="html"><![CDATA[<p>Several year ago, due to a code issue the application that I was working with wrote more than 10 millions files, exhausting all the <code>inodes</code> of the system. Due to that server not having replication at the time I went searching for the golden goose of the file deletion, and ended finding this.</p>
+<p>Sadly the original article is not available anymore, but from that time now <code>rsync</code> is my mainly mass destruction tool!</p>
+<hr>
+<h2 id="another-benchmark">Another Benchmark</h2>
+<p>Several days ago, <a href="https://www.quora.com/profile/Keith-Winstein">Keith-Winstein</a> replied at the <a href="https://www.quora.com/How-can-someone-rapidly-delete-400-000-files">Quora Posts</a> mentioned that my previous benchmark cannot be reproduced due to the time of all deletion operations lasting too long. To make it clear, those weird data might be that my computer was under heavy load in the past years that it may exist some fs errors during the previous benchmarks. Yet, I am not sure about it. Anyway, I got myself a relatively new rackable computer and did the benchmark again. This time I used <code>/usr/bin/time</code> that offers more detail results. Here is the new result,</p>
+<p>(The # of files is 1000000. Each of them has 0 size.)</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Elapsed</th>
+<th>System Time</th>
+<th>%CPU</th>
+<th>cs (Vol/Invol)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rsync -a –delete empty/ a</td>
+<td>10.60</td>
+<td>1.31</td>
+<td>95</td>
+<td>106/22</td>
+</tr>
+<tr>
+<td>find b/ -type f -delete</td>
+<td>28.51</td>
+<td>14.46</td>
+<td>52</td>
+<td>14849/11</td>
+</tr>
+<tr>
+<td>find c/ -type f | xargs -L 100 rm</td>
+<td>41.69</td>
+<td>20.60</td>
+<td>54</td>
+<td>37048/15074</td>
+</tr>
+<tr>
+<td>find d/ -type f | xargs -L 100 -P 100 rm</td>
+<td>34.32</td>
+<td>27.82</td>
+<td>89</td>
+<td>929897/21720</td>
+</tr>
+<tr>
+<td>rm -rf f</td>
+<td>31.29</td>
+<td>14.80</td>
+<td>47</td>
+<td>15134/11</td>
+</tr>
+</tbody>
+</table>
+<h3 id="original-output">Original Output</h3>
+<pre><code># method 1
+~/test $ /usr/bin/time -v  rsync -a --delete empty/ a/
+        Command being timed: &quot;rsync -a --delete empty/ a/&quot;
+        User time (seconds): 1.31
+        System time (seconds): 10.60
+        Percent of CPU this job got: 95%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:12.42
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 0
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 24378
+        Voluntary context switches: 106
+        Involuntary context switches: 22
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 0
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+# method 2
+        Command being timed: &quot;find b/ -type f -delete&quot;
+        User time (seconds): 0.41
+        System time (seconds): 14.46
+        Percent of CPU this job got: 52%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:28.51
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 0
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 11749
+        Voluntary context switches: 14849
+        Involuntary context switches: 11
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 0
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+# method 3
+find c/ -type f | xargs -L 100 rm
+~/test $ /usr/bin/time -v ./delete.sh
+        Command being timed: &quot;./delete.sh&quot;
+        User time (seconds): 2.06
+        System time (seconds): 20.60
+        Percent of CPU this job got: 54%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:41.69
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 0
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 1764225
+        Voluntary context switches: 37048
+        Involuntary context switches: 15074
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 0
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+# method 4
+find d/ -type f | xargs -L 100 -P 100 rm
+~/test $ /usr/bin/time -v ./delete.sh
+        Command being timed: &quot;./delete.sh&quot;
+        User time (seconds): 2.86
+        System time (seconds): 27.82
+        Percent of CPU this job got: 89%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:34.32
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 0
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 1764278
+        Voluntary context switches: 929897
+        Involuntary context switches: 21720
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 0
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+# method 5
+~/test $ /usr/bin/time -v rm -rf f
+        Command being timed: &quot;rm -rf f&quot;
+        User time (seconds): 0.20
+        System time (seconds): 14.80
+        Percent of CPU this job got: 47%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:31.29
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 0
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 0
+        Minor (reclaiming a frame) page faults: 176
+        Voluntary context switches: 15134
+        Involuntary context switches: 11
+        Swaps: 0
+        File system inputs: 0
+        File system outputs: 0
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+</code></pre><h3 id="hardware-specification">Hardware specification</h3>
+<pre><code>Summary:        HP DL360 G7, 2 x Xeon E5620 2.40GHz, 23.5GB / 24GB 1333MHz
+Processors:     2 (of 16) x Xeon E5620 2.40GHz (16 cores)
+Memory:         23.5GB
+Disk:           cciss/c0d0 (cciss0): 300GB (4%) RAID-10
+Disk-Control:   cciss0: Hewlett-Packard Company Smart Array G6 controllers, FW 3.66
+OS:             RHEL Server 5.4 (Tikanga), Linux 2.6.18-164.el5 x86_64, 64-bit
+</code></pre><h2 id="the-original-benchmark">The Original Benchmark</h2>
+<p>Yesterday, I saw a very interesting method for deleting huge number of files in a single directory. The method is provided by Zhenyu Lee athttp://www.quora.com/How-can-someone-rapidly-delete-400-000-files
+Instead of using find and xargs, Lee ingeniously takes the advantage of rsync that he uses rsync –delete to sync the target directory with an empty directory. Later, I did a comparasion on various method that I've used. To my surprise, Lee's method is much faster than others. The following is my benchmark,</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th># of files</th>
+<th>Elapsed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rsync -a –delete empty/ s1</td>
+<td>1000000</td>
+<td>6m50.638s</td>
+</tr>
+<tr>
+<td>find s2/ -type f -delete</td>
+<td>1000000</td>
+<td>87m38.826s</td>
+</tr>
+<tr>
+<td>find s3/ -type f | xargs -L 100 rm</td>
+<td>1000000</td>
+<td>83m36.851s</td>
+</tr>
+<tr>
+<td>find s4/ -type f | xargs -L 100 -P 100 rm</td>
+<td>1000000</td>
+<td>78m4.658s</td>
+</tr>
+<tr>
+<td>rm -rf s5</td>
+<td>1000000</td>
+<td>80m33.434s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hardware-specification1">Hardware Specification</h3>
+<pre><code>CPU: Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+MEM: 4G
+HD: ST3250318AS: 250G/7200RPM
+</code></pre><h2 id="footnotes">Footnotes</h2>
+<p>[1]: Voluntary Context Switches and Involuntary Context Switches from /usr/bin/time</p>
+<p>[2]: As there is pipeline, in order to make an accurate result, practically the command is wrapped by a bash script</p>
+<p>Original Post: <a href="http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html">http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Sysadmin Devops Tools and Frameworks</title>
+            <link>https://hugoprudente.github.io/en/posts/sysadmin-devops-tools-and-frameworks/</link>
+            <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+            
+            <guid>https://hugoprudente.github.io/en/posts/sysadmin-devops-tools-and-frameworks/</guid>
+            <description>How hard is to you SysAdmin/DevOps to keep track of all the tools, platforms and frameworks available on the market?
+3 years ago, Jeferson Norona #LinuxTips (VAI), posted on his personal page about a project responsible to gather all those tools and frameworks and consolidate it, to our life of SysAdmins/DevOps easier.
+The project was created by Alen Krmelj and it&#39;s awesome!
+http://sysadmin.it-landscape.info/</description>
+            <content type="html"><![CDATA[<p>How hard is to you SysAdmin/DevOps to keep track of all the tools, platforms and frameworks available on the market?</p>
+<p>3 years ago, <a href="https://twitter.com/badtux_">Jeferson Norona</a> #LinuxTips (VAI), posted on his personal page about a project responsible to gather all those tools and frameworks and consolidate it, to our life of SysAdmins/DevOps easier.</p>
+<p>The project was created by <a href="blackbird.si">Alen Krmelj</a> and it's awesome!</p>
+<p><img src="/2019/12/itlandscape.png" alt="itlandscape.png"></p>
+<p><a href="http://sysadmin.it-landscape.info/"><a href="http://sysadmin.it-landscape.info/">http://sysadmin.it-landscape.info/</a></a></p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>
