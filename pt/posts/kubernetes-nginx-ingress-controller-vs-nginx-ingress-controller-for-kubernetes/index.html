@@ -172,40 +172,40 @@ https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1  
 <p>As tags para este projeto são <code>nginx.org</code> e <code>nginx.com</code> para as funções pagas.</p>
 <p>Exemplos explorando as funções deste projeto podem ser encontradas no <a href="https://github.com/nginxinc/kubernetes-ingress/tree/v1.6.1/examples">GitHub</a></p>
 <p>Exemplo para funções rewrite:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: cafe-ingress
-  annotations:
-    nginx.org/rewrites: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
-spec:
-  rules:
-  - host: cafe.example.com
-    http:
-      paths:
-      - path: /tea/
-        backend:
-          serviceName: tea-svc
-          servicePort: <span style="color:#ae81ff">80</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: extensions/v1beta1
+<span style="color:#66d9ef">kind</span>: Ingress
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: cafe-ingress
+  <span style="color:#66d9ef">annotations</span>:
+    <span style="color:#66d9ef">nginx.org/rewrites</span>: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">rules</span>:
+  - <span style="color:#66d9ef">host</span>: cafe.example.com
+    <span style="color:#66d9ef">http</span>:
+      <span style="color:#66d9ef">paths</span>:
+      - <span style="color:#66d9ef">path</span>: /tea/
+        <span style="color:#66d9ef">backend</span>:
+          <span style="color:#66d9ef">serviceName</span>: tea-svc
+          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
 </code></pre></div><h1 id="kubernetes-nginx-ingress-controller">Kubernetes NGINX Ingress Controller</h1>
 <p>Mantido pela comunidade do Kubernetes a documentação pode ser encontrada em<a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>:</p>
 <p>As tags para este projeto é <code>nginx.ingress.kubernetes.io/</code> e não possui funções extras.</p>
 <p>Exemplos explorando as funções deste projeto podem ser encontradas no <a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples">GitHub</a></p>
 <p>Exemplo para funções rewrite:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: cafe-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /tea
-        backend:
-          serviceName: tea-svc
-          servicePort: <span style="color:#ae81ff">80</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: networking.k8s.io/v1beta1
+<span style="color:#66d9ef">kind</span>: Ingress
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: cafe-ingress
+  <span style="color:#66d9ef">annotations</span>:
+    <span style="color:#66d9ef">nginx.ingress.kubernetes.io/rewrite-target</span>: /
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">rules</span>:
+  - <span style="color:#66d9ef">http</span>:
+      <span style="color:#66d9ef">paths</span>:
+      - <span style="color:#66d9ef">path</span>: /tea
+        <span style="color:#66d9ef">backend</span>:
+          <span style="color:#66d9ef">serviceName</span>: tea-svc
+          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
 </code></pre></div><hr>
 <p>Estes projetos são alguns meses de diferença e não há uma explicação clara do porque o Kubernetes Ingress Controller escolheu exatamente o nesmo nome do projeto do NGINX que já estava sendo mantido.</p>
 <p>Em resumo, os nomes são muito similares e em um &ldquo;Bag of Words&rdquo; eles poderiam ser considerado os mesmos, então fica esse alerta para não fazer deploy de <em>bananas</em> pensando que são <em>maças</em>.</p>
@@ -286,7 +286,7 @@ spec:
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'G-BVSTV863VB', 'auto');
+        ga('create', 'UA-154006380-1', 'auto');
         ga('send', 'pageview');
     </script>
 

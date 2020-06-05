@@ -16,7 +16,7 @@
       <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
       
       <guid>https://hugoprudente.github.io/en/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</guid>
-      <description>Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
+      <description>Quite often I&amp;rsquo;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
 Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
@@ -31,7 +31,7 @@ Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes 
       <guid>https://hugoprudente.github.io/en/posts/sysadmin-devops-tools-and-frameworks/</guid>
       <description>How hard is to you SysAdmin/DevOps to keep track of all the tools, platforms and frameworks available on the market?
 3 years ago, Jeferson Norona #LinuxTips (VAI), posted on his personal page about a project responsible to gather all those tools and frameworks and consolidate it, to our life of SysAdmins/DevOps easier.
-The project was created by Alen Krmelj and it&#39;s awesome!
+The project was created by Alen Krmelj and it&amp;rsquo;s awesome!
 http://sysadmin.it-landscape.info/</description>
     </item>
     

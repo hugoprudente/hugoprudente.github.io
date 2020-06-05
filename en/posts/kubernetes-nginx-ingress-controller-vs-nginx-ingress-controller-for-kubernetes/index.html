@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="Hugo Prudente ">
-<meta name="description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
+<meta name="description" content="Quite often I&amp;rsquo;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
 Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
@@ -35,7 +35,7 @@ Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes 
 
 
 <meta itemprop="name" content="Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes">
-<meta itemprop="description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
+<meta itemprop="description" content="Quite often I&rsquo;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
 Commonly we go to google.com and search for the key works &ldquo;kuberentes ingress controller&rdquo;, this will return two oficial projects, by different companies.
@@ -51,7 +51,7 @@ Commonly we go to google.com and search for the key works &ldquo;kuberentes ingr
 <meta name="twitter:image" content="https://hugoprudente.github.io"/>
 
 <meta name="twitter:title" content="Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes"/>
-<meta name="twitter:description" content="Quite often I&#39;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
+<meta name="twitter:description" content="Quite often I&rsquo;m seeing people having trouble using the Kubernetes Ingress Controller featuring Nginx.
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
 Commonly we go to google.com and search for the key works &ldquo;kuberentes ingress controller&rdquo;, this will return two oficial projects, by different companies.
@@ -140,7 +140,7 @@ Commonly we go to google.com and search for the key works &ldquo;kuberentes ingr
             
 
             <div class="post-content">
-                <p>Quite often I'm seeing people having trouble using the <strong>Kubernetes Ingress Controller</strong> featuring <strong>Nginx</strong>.</p>
+                <p>Quite often I&rsquo;m seeing people having trouble using the <strong>Kubernetes Ingress Controller</strong> featuring <strong>Nginx</strong>.</p>
 <p>The principal issue reported by the community is the annotation <code>nginx.ingress.kubernetes.io/rewrite-target: /</code> not working.</p>
 <p>The cause of the not working <em>tag</em> is the the <code>ingres-controller</code> being used. Let me clarify!</p>
 <p>Commonly we go to <code>google.com</code> and search for the key works &ldquo;kuberentes ingress controller&rdquo;, this will return two <strong>oficial</strong> projects, by different companies.</p>
@@ -166,48 +166,48 @@ https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1  
     Image:       nginx/nginx-ingress:1.6.1
 </code></pre></div><p>From the <a href="https://github.com/nginxinc/kubernetes-ingress/">NGINX Ingress Controller for Kubernetes</a>, GitHub page we can confirm the ownership of the image <strong>nginx-ingress:1.6.1</strong>.</p>
 <p>From the <a href="https://github.com/kubernetes/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>, GitHub page we can also confirm that the ownership of image <strong>nginx-ingress-controller:0.27.1</strong>.</p>
-<p>Now that we defined the used project we can move forward with it's configuration:</p>
+<p>Now that we defined the used project we can move forward with it&rsquo;s configuration:</p>
 <h1 id="nginx-ingress-controller-for-kubernetes">NGINX Ingress Controller for Kubernetes</h1>
 <p>Maintained by NGINX the documentation can be found here on <a href="https://docs.nginx.com/nginx-ingress-controller/">Nginx Ingress Controller for Kubernetes</a>:</p>
 <p>The tags for the this projects are <code>nginx.org</code> and <code>nginx.com</code> for the paid extra features.</p>
 <p>Examples exploring the features of this project can be found here on the <a href="https://github.com/nginxinc/kubernetes-ingress/tree/v1.6.1/examples">GitHub</a></p>
 <p>Example for rewrite feature:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: cafe-ingress
-  annotations:
-    nginx.org/rewrites: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
-spec:
-  rules:
-  - host: cafe.example.com
-    http:
-      paths:
-      - path: /tea/
-        backend:
-          serviceName: tea-svc
-          servicePort: <span style="color:#ae81ff">80</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: extensions/v1beta1
+<span style="color:#66d9ef">kind</span>: Ingress
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: cafe-ingress
+  <span style="color:#66d9ef">annotations</span>:
+    <span style="color:#66d9ef">nginx.org/rewrites</span>: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">rules</span>:
+  - <span style="color:#66d9ef">host</span>: cafe.example.com
+    <span style="color:#66d9ef">http</span>:
+      <span style="color:#66d9ef">paths</span>:
+      - <span style="color:#66d9ef">path</span>: /tea/
+        <span style="color:#66d9ef">backend</span>:
+          <span style="color:#66d9ef">serviceName</span>: tea-svc
+          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
 </code></pre></div><h1 id="kubernetes-nginx-ingress-controller">Kubernetes NGINX Ingress Controller</h1>
 <p>Maintained by the Kubernetes community, the documentation can be found her on <a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>:</p>
 <p>The tags for this project is <code>nginx.ingress.kubernetes.io/</code> and has no extra features.</p>
 <p>Examples exploring the features of this project can be found here on the <a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples">GitHub</a></p>
 <p>Example for rewrite feature:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: cafe-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /tea
-        backend:
-          serviceName: tea-svc
-          servicePort: <span style="color:#ae81ff">80</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: networking.k8s.io/v1beta1
+<span style="color:#66d9ef">kind</span>: Ingress
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: cafe-ingress
+  <span style="color:#66d9ef">annotations</span>:
+    <span style="color:#66d9ef">nginx.ingress.kubernetes.io/rewrite-target</span>: /
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">rules</span>:
+  - <span style="color:#66d9ef">http</span>:
+      <span style="color:#66d9ef">paths</span>:
+      - <span style="color:#66d9ef">path</span>: /tea
+        <span style="color:#66d9ef">backend</span>:
+          <span style="color:#66d9ef">serviceName</span>: tea-svc
+          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
 </code></pre></div><hr>
-<p>The projects are a couple months difference from each other and there's no clear explanation on why the Kuberenetes Ingress Controller had chosen that exactly name as the NGINX one were already being maintained.</p>
+<p>The projects are a couple months difference from each other and there&rsquo;s no clear explanation on why the Kuberenetes Ingress Controller had chosen that exactly name as the NGINX one were already being maintained.</p>
 <p>On summary the names are quite similar and on a Bag of Words they could be even considered the same, so we need to be alert to not deploy <em>bananas</em> thinking that they are <em>apples</em></p>
 
             </div>
@@ -286,7 +286,7 @@ spec:
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'G-BVSTV863VB', 'auto');
+        ga('create', 'UA-154006380-1', 'auto');
         ga('send', 'pageview');
     </script>
 

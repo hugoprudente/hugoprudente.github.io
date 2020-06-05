@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://hugoprudente.github.io/en/tags/c/</loc>
+    <lastmod>2020-01-21T21:23:25+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://hugoprudente.github.io/en/categories/</loc>
     <lastmod>2020-01-21T21:23:25+00:00</lastmod>
     <xhtml:link
@@ -165,11 +170,6 @@
                 hreflang="en"
                 href="https://hugoprudente.github.io/en/tags/bash/"
                 />
-  </url>
-  
-  <url>
-    <loc>https://hugoprudente.github.io/en/tags/c/</loc>
-    <lastmod>2020-01-17T16:48:29+00:00</lastmod>
   </url>
   
   <url>
@@ -573,21 +573,6 @@
   </url>
   
   <url>
-    <loc>https://hugoprudente.github.io/en/tags/imap/pop3/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://hugoprudente.github.io/pt/tags/imap/pop3/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/tags/imap/pop3/"
-                />
-  </url>
-  
-  <url>
     <loc>https://hugoprudente.github.io/en/tags/it-asset-management/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -918,21 +903,6 @@
   </url>
   
   <url>
-    <loc>https://hugoprudente.github.io/en/categories/storage/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://hugoprudente.github.io/pt/categories/storage/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/categories/storage/"
-                />
-  </url>
-  
-  <url>
     <loc>https://hugoprudente.github.io/en/tags/storage/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -944,6 +914,21 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://hugoprudente.github.io/en/tags/storage/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://hugoprudente.github.io/en/categories/storage/</loc>
+    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://hugoprudente.github.io/pt/categories/storage/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/categories/storage/"
                 />
   </url>
   
@@ -1079,6 +1064,20 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://hugoprudente.github.io/en/tags/wikis/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://hugoprudente.github.io/en/tags/imap/pop3/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://hugoprudente.github.io/pt/tags/imap/pop3/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/tags/imap/pop3/"
                 />
   </url>
   

@@ -50,40 +50,40 @@ https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1  
 <p>As tags para este projeto são <code>nginx.org</code> e <code>nginx.com</code> para as funções pagas.</p>
 <p>Exemplos explorando as funções deste projeto podem ser encontradas no <a href="https://github.com/nginxinc/kubernetes-ingress/tree/v1.6.1/examples">GitHub</a></p>
 <p>Exemplo para funções rewrite:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: cafe-ingress
-  annotations:
-    nginx.org/rewrites: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
-spec:
-  rules:
-  - host: cafe.example.com
-    http:
-      paths:
-      - path: /tea/
-        backend:
-          serviceName: tea-svc
-          servicePort: <span style="color:#ae81ff">80</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: extensions/v1beta1
+<span style="color:#66d9ef">kind</span>: Ingress
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: cafe-ingress
+  <span style="color:#66d9ef">annotations</span>:
+    <span style="color:#66d9ef">nginx.org/rewrites</span>: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">rules</span>:
+  - <span style="color:#66d9ef">host</span>: cafe.example.com
+    <span style="color:#66d9ef">http</span>:
+      <span style="color:#66d9ef">paths</span>:
+      - <span style="color:#66d9ef">path</span>: /tea/
+        <span style="color:#66d9ef">backend</span>:
+          <span style="color:#66d9ef">serviceName</span>: tea-svc
+          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
 </code></pre></div><h1 id="kubernetes-nginx-ingress-controller">Kubernetes NGINX Ingress Controller</h1>
 <p>Mantido pela comunidade do Kubernetes a documentação pode ser encontrada em<a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>:</p>
 <p>As tags para este projeto é <code>nginx.ingress.kubernetes.io/</code> e não possui funções extras.</p>
 <p>Exemplos explorando as funções deste projeto podem ser encontradas no <a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples">GitHub</a></p>
 <p>Exemplo para funções rewrite:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: cafe-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /tea
-        backend:
-          serviceName: tea-svc
-          servicePort: <span style="color:#ae81ff">80</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: networking.k8s.io/v1beta1
+<span style="color:#66d9ef">kind</span>: Ingress
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: cafe-ingress
+  <span style="color:#66d9ef">annotations</span>:
+    <span style="color:#66d9ef">nginx.ingress.kubernetes.io/rewrite-target</span>: /
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">rules</span>:
+  - <span style="color:#66d9ef">http</span>:
+      <span style="color:#66d9ef">paths</span>:
+      - <span style="color:#66d9ef">path</span>: /tea
+        <span style="color:#66d9ef">backend</span>:
+          <span style="color:#66d9ef">serviceName</span>: tea-svc
+          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
 </code></pre></div><hr>
 <p>Estes projetos são alguns meses de diferença e não há uma explicação clara do porque o Kubernetes Ingress Controller escolheu exatamente o nesmo nome do projeto do NGINX que já estava sendo mantido.</p>
 <p>Em resumo, os nomes são muito similares e em um &ldquo;Bag of Words&rdquo; eles poderiam ser considerado os mesmos, então fica esse alerta para não fazer deploy de <em>bananas</em> pensando que são <em>maças</em>.</p>
@@ -152,7 +152,7 @@ Infelizmente o artigo original não está mais disponível, mas desse em dia em 
 </tr>
 </tbody>
 </table>
-<h3 id="sada-original">Saída Original</h3>
+<h3 id="saída-original">Saída Original</h3>
 <pre><code># method 1
 ~/test $ /usr/bin/time -v  rsync -a --delete empty/ a/
         Command being timed: &quot;rsync -a --delete empty/ a/&quot;
@@ -282,7 +282,7 @@ find d/ -type f | xargs -L 100 -P 100 rm
         Signals delivered: 0
         Page size (bytes): 4096
         Exit status: 0
-</code></pre><h3 id="especificao-do-hardware">Especificação do Hardware</h3>
+</code></pre><h3 id="especificação-do-hardware">Especificação do Hardware</h3>
 <pre><code>Summary:        HP DL360 G7, 2 x Xeon E5620 2.40GHz, 23.5GB / 24GB 1333MHz
 Processors:     2 (of 16) x Xeon E5620 2.40GHz (16 cores)
 Memory:         23.5GB
@@ -327,11 +327,11 @@ OS:             RHEL Server 5.4 (Tikanga), Linux 2.6.18-164.el5 x86_64, 64-bit
 </tr>
 </tbody>
 </table>
-<h3 id="especificao-do-hardware1">Especificação do Hardware</h3>
+<h3 id="especificação-do-hardware-1">Especificação do Hardware</h3>
 <pre><code>CPU: Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
 MEM: 4G
 HD: ST3250318AS: 250G/7200RPM
-</code></pre><h2 id="notas-de-rodap">Notas de Rodapé</h2>
+</code></pre><h2 id="notas-de-rodapé">Notas de Rodapé</h2>
 <p>[1]: Voluntary Context Switches e Involuntary Context Switches são do /usr/bin/time</p>
 <p>[2]: Como há uma pipeline, para o resultado ser o mais ácuro possivel ele foi envolto num bash script.</p>
 <p>Original Post: <a href="http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html">http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html</a></p>
@@ -352,7 +352,7 @@ http://sysadmin.it-landscape.info/</description>
 <p>3 anos atrás, <a href="https://twitter.com/badtux_">Jeferson Norona</a> #LinuxTips (VAI), postou em suas redes sociais sobre um projeto onde reune e consolida as principais ferramentas e frameworks para facilitar a vida do SysAdmin/DevOps.</p>
 <p>O projeto foi criado por <a href="blackbird.si">Alen Krmelj</a> e é magnífico!</p>
 <p><img src="/2019/12/itlandscape.png" alt="itlandscape.png"></p>
-<p><a href="http://sysadmin.it-landscape.info/"><a href="http://sysadmin.it-landscape.info/">http://sysadmin.it-landscape.info/</a></a></p>
+<p><a href="http://sysadmin.it-landscape.info/">http://sysadmin.it-landscape.info/</a></p>
 ]]></content>
         </item>
         

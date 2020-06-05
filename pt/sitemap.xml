@@ -498,21 +498,6 @@
   </url>
   
   <url>
-    <loc>https://hugoprudente.github.io/pt/tags/imap/pop3/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/tags/imap/pop3/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://hugoprudente.github.io/pt/tags/imap/pop3/"
-                />
-  </url>
-  
-  <url>
     <loc>https://hugoprudente.github.io/pt/tags/it-asset-management/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -858,21 +843,6 @@
   </url>
   
   <url>
-    <loc>https://hugoprudente.github.io/pt/categories/storage/</loc>
-    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/categories/storage/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt"
-                href="https://hugoprudente.github.io/pt/categories/storage/"
-                />
-  </url>
-  
-  <url>
     <loc>https://hugoprudente.github.io/pt/tags/storage/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -884,6 +854,21 @@
                 rel="alternate"
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/storage/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://hugoprudente.github.io/pt/categories/storage/</loc>
+    <lastmod>2019-12-05T02:21:55+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/categories/storage/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://hugoprudente.github.io/pt/categories/storage/"
                 />
   </url>
   
@@ -1019,6 +1004,20 @@
                 rel="alternate"
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/wikis/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://hugoprudente.github.io/pt/tags/imap/pop3/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/tags/imap/pop3/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://hugoprudente.github.io/pt/tags/imap/pop3/"
                 />
   </url>
   
