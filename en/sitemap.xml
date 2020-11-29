@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://hugoprudente.github.io/en/tags/c/</loc>
-    <lastmod>2020-01-21T21:23:25+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://hugoprudente.github.io/en/categories/</loc>
     <lastmod>2020-01-21T21:23:25+00:00</lastmod>
     <xhtml:link
@@ -170,6 +165,11 @@
                 hreflang="en"
                 href="https://hugoprudente.github.io/en/tags/bash/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://hugoprudente.github.io/en/tags/c/</loc>
+    <lastmod>2020-01-17T16:48:29+00:00</lastmod>
   </url>
   
   <url>
