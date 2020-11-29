@@ -5,7 +5,18 @@
     <link>https://hugoprudente.github.io/pt/categories/cloud-computing-virtualization/</link>
     <description>Recent content in Cloud Computing &amp; Virtualization on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/pt/categories/cloud-computing-virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Jul 2020 13:09:21 +0200</lastBuildDate><atom:link href="https://hugoprudente.github.io/pt/categories/cloud-computing-virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Usando AWS Network ACLs com NAT Gateway</title>
+      <link>https://hugoprudente.github.io/pt/posts/usando-aws-network-acls-com-natgateway/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/pt/posts/usando-aws-network-acls-com-natgateway/</guid>
+      <description>É muito comum os erros feitos durante configurações de AWS Network ACLs quando adicionando a camada extra de segurança na VPC.
+Dado o fato da Network ACL ser stateless, que significa que a regra de Entrada (Inbound), precisa bater com a de Saída (Oubound).
+Com este post, você aprenderá identificar tais particularides usando o ambiente do AWS ElasticBeanstalk como exemplo, devido sua sensibilidade quanto aos requisitos de acesso a rede.</description>
+    </item>
+    
     <item>
       <title>Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</title>
       <link>https://hugoprudente.github.io/pt/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</link>
