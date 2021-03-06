@@ -4,8 +4,357 @@
         <link>https://hugoprudente.github.io/en/posts/</link>
         <description>Recent content in Posts on Hugo Prudente</description>
         <generator>Hugo -- gohugo.io</generator>
-        <lastBuildDate>Sat, 11 Jul 2020 13:09:21 +0200</lastBuildDate>
+        <lastBuildDate>Thu, 04 Mar 2021 22:46:31 +0000</lastBuildDate>
         <atom:link href="https://hugoprudente.github.io/en/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Managing Secrets During Docker Build</title>
+            <link>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</link>
+            <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+            
+            <guid>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</guid>
+            <description>What would be the best way to manage my secrets during a docker build?
+Checking official and unofficial projects available in hub.docker.com, I have collected the 4 (four) most common cases on how users are storing and managing their secrets.
+There are cases that during the build you would use a token or secret file for fetch information from a repo or other application to setup a configuration that will not be possible during runtime.</description>
+            <content type="html"><![CDATA[<p>What would be the best way to manage my secrets during a docker build?</p>
+<p>Checking official and unofficial projects available in <a href="https://hub.docker.com">hub.docker.com</a>,
+I have collected the 4 (four) most common cases on how users are storing and managing their secrets.</p>
+<p>There are cases that during the build you would use a token or secret file for fetch information from a
+repo or other application to setup a configuration that will not be possible during runtime.</p>
+<p>Some of those cases also doesn&rsquo;t fit the multistage building as fetching a package from pip.</p>
+<h2 id="scenarios">Scenarios</h2>
+<p>I need to install a <code>python</code> using a private pip that I created for this lab.</p>
+<p>To achieve that you only need to add <code>pip.conf</code> file as below to <code>/root/.pip/pip.conf</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[global]</span>
+<span style="color:#a6e22e">index-url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist</span>
+<span style="color:#a6e22e">timeout</span><span style="color:#f92672">=</span><span style="color:#e6db74">60</span>
+<span style="color:#a6e22e">extra-index-url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">https://pypi.python.org/simple</span>
+</code></pre></div><p>Looks simple, let&rsquo;s see how we manage it.</p>
+<h3 id="method-1">Method 1</h3>
+<p>Here we copy the <code>pip.conf</code> to the container and don&rsquo;t remove it on the end.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker build -t secret:v1 .
+
+on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker history secret:v1
+IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+0d6589d4b95f   About a minute ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">4</span> minutes ago        COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago          /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</code></pre></div><p>Let&rsquo;s check if the file on the end of the build is present and it was leaked.</p>
+<pre><code>on ⛵ k3s (nerdweek) ~/post via 🐍 v3.9.1 (osx)
+❯ docker run -it secret:v1 cat /root/.pip/pip.conf
+[global]
+index-url = https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist
+timeout=60
+extra-index-url = https://pypi.python.org/simple
+</code></pre><h3 id="method-2">Method 2</h3>
+<p>Here we copy the <code>pip.conf</code> to the container and remove it with a <code>RUN</code> statement on the end.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker build -t secret:v2 .
+
+on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker history secret:v2
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+42f04cdc6577   <span style="color:#ae81ff">6</span> seconds ago   RUN /bin/sh -c rm /root/.pip/pip.conf <span style="color:#75715e"># buil…   0B        buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">4</span> minutes ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">7</span> minutes ago   COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago     /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</code></pre></div><p>Let&rsquo;s check again if the file was present.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker run -it secret:v2 cat /root/.pip/pip.conf
+cat: /root/.pip/pip.conf: No such file or directory
+</code></pre></div><h3 id="method-3">Method 3</h3>
+<p>Here we copy the <code>pip.conf</code> to the container and remove it in the same <code>RUN</code> statement as the <code>pip install</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker build -t secret:v3 .
+
+on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker history secret:v3
+IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+a2bf2672abaf   About a minute ago   RUN /bin/sh -c pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm…   14.1MB    buildkit.dockerfile.v0
+&lt;missing&gt;      <span style="color:#ae81ff">17</span> minutes ago       COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago          /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</code></pre></div><p>Let&rsquo;s check once more if the file was present.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker run -it secret:v3 cat /root/.pip/pip.conf
+cat: /root/.pip/pip.conf: No such file or directory
+</code></pre></div><h3 id="method-4">Method 4</h3>
+<p>Here we create the <code>pip.conf</code> using the <code>generate.sh</code> script that receive the
+<code>SECRET</code> as <code>ARG</code> with the <code>--build-arg</code> options and we remove it on the same <code>RUN</code> statement.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
+SECRET<span style="color:#f92672">=</span>$1
+
+mkdir -p /root/.pip
+cat &gt; /root/.pip/pip.conf <span style="color:#e6db74">&lt;&lt; EOF
+</span><span style="color:#e6db74">[global]
+</span><span style="color:#e6db74">index-url = https://hugo.prudente:${SECRET}@private.pip/playlist
+</span><span style="color:#e6db74">timeout=60
+</span><span style="color:#e6db74">extra-index-url = https://pypi.python.org/simple
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> SECRET<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> generate.sh /generate.sh<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> /generate.sh <span style="color:#e6db74">${</span>SECRET<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker build -t secret:v4 --progress plain --build-arg SECRET<span style="color:#f92672">=</span>My$3cr3tP4$$ .
+
+➜ on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker history -H secret:v4
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+d2ca3623139f   <span style="color:#ae81ff">2</span> minutes ago   RUN |<span style="color:#ae81ff">1</span> SECRET<span style="color:#f92672">=</span>My$3cr3tP4$$ /b…   14.1MB    buildkit.dockerfile.v0
+&lt;missing&gt;      <span style="color:#ae81ff">2</span> minutes ago   COPY generate.sh /generate.sh <span style="color:#75715e"># buildkit        261B      buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">2</span> minutes ago   ARG SECRET                                      0B        buildkit.dockerfile.v0
+&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago     /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</code></pre></div><p>Last but not least, let&rsquo;s check the presece of the file.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+❯ docker run -it secret:v4 cat /root/.pip/pip.conf
+cat: /root/.pip/pip.conf: No such file or directory
+</code></pre></div><p>The credential is not on the <code>pip.conf</code> file but it&rsquo;s visible during the <code>docker history</code>.</p>
+<h3 id="preliminary-results">Preliminary Results</h3>
+<p>Here is a matrix on where our secrets have been leaked.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:center">Runtime</th>
+<th style="text-align:right">Inspection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret:v1</td>
+<td style="text-align:center"><span style="color:red">Yes</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v2</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v3</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v4</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:red">Yes</span></td>
+</tr>
+</tbody>
+</table>
+<p>With the preliminary results we can already exclude methods 1 and 4 as we can
+consider them insecure due to the credentials being visible at some point.</p>
+<p>The method 4, I also used <code>--build-args SECRET=${SECRET}</code> and the secrets
+leaks on the same way.</p>
+<h2 id="dive-deep">Dive Deep</h2>
+<h3 id="overlayfs">OverlayFS</h3>
+<p>Is the kernel implementation for a union-filesystem, an overlay-filesystem tries
+to present a filesystem which is the result over overlaying one filesystem on
+top of the other.</p>
+<p><img src="/2021/03/overlayfs.png" alt="overlayfs.png"></p>
+<p>In short taking the example of the image above imagine you have 2 directories
+the <strong>lower</strong> and <strong>upper</strong> where the <strong>lower</strong> is a read-only directory for the
+consumer, but they are still read-write from the Linux Operational system.</p>
+<p>When a file is modified on the <strong>upper</strong> the change happens normally but if a
+change is made on a file of the <strong>lower</strong> directory a copy of it is created on the
+<strong>upper</strong> to become accessible, once the modification is complete another
+process is responsible to fetch the modification and write on the <strong>lower</strong>
+directory.</p>
+<p>So this union of directories merged together as one unique block limited by the
+cgroups is what docker and it&rsquo;s storage driver uses on our example.</p>
+<p>The AUFS that&rsquo;s also a union-filesystem also presents the same behaviour,
+although some of locations may be slightly different.</p>
+<h3 id="checking-the-filesystem">Checking the Filesystem</h3>
+<p>Now that I know how OverlayFS works let&rsquo;s isolate the directories (layers) used
+by the <code>python:latest</code> so we can filter out only the ones that we are interested
+on, the ones that have <code>pip.conf</code> file.</p>
+<p>Inspect the containers I can find the directories used on the OverlayFS.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker inspect python:latest | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span>
+9e7c768dda91c4fa7ed6a57c7cb784834033bff92bd11ff6d062d4de11c0f898
+17bf53c98685ae36487eb55f0d2256d168f210a688ef51deef760de1a699cbdf
+4cb1dbbf58a2b1ca8df6d9d977a66fe918aee21434fcd656f1a68f1f412d75ff
+358dd0944f115e2a273c5259dd1432b44e36908cf223f8ce0d9f74550430f577
+c034592b1a26552525742ed81e7fbce2139817b634d48db8349dbebf15a45914
+19d471e0407c0f1ca14eb1cb8c46aaef9357037cad5dc170cb6a4af3c1feab40
+e005796f193e62e9db78de1df20999daca1a96a0bebed19c1dd906b1b4da8542
+badc6aa65b2d3f10b0cdff3fc04bf3a64b551af1dd9e01b6ecd38ed71abdc3da
+8d6ff96b718838005288a94cdc9fd408d1f70d7e9cbab678ebeb4521d11b366d
+
+on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker inspect python:latest | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> &gt; layers.python
+</code></pre></div><p>With the layers saved in the file <code>layers.python</code> I can use a similar command to
+exclude the know python layers and get only the ones added by our build.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker inspect secret:v1 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+e1kq2j71b7clcwtn0lbmqa1g9
+v6zy2xgzrow2mgpyq9d0vch6l
+
+➜ docker inspect secret:v2 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+v6zy2xgzrow2mgpyq9d0vch6l
+e1kq2j71b7clcwtn0lbmqa1g9
+oudofb9c0iaqog9sff81f8053
+
+on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker inspect secret:v3 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+e1kq2j71b7clcwtn0lbmqa1g9
+hqsrze873a2uz7tjsgbqdo3sd
+
+on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker inspect secret:v4 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+78gz619okusgrq4jo4ek863ug
+oq22x88p26hzqmr1w1qpf8mm4
+</code></pre></div><p>Now that we have the layers I have created a list just to make it simpler to
+find it when we check the directory.</p>
+<h4 id="accessing-the-overlayfs-directories">Accessing the OverlayFS directories</h4>
+<p>Using one of the commands below as root you will find the entry point where
+Docker Storage driver creates the file-system hierarchy used by the whole
+eco-system.</p>
+<p><strong>Linux</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd /var/lib/docker/
+</code></pre></div><p><strong>MacOS</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run -it --rm --privileged --pid<span style="color:#f92672">=</span>host justincormack/nsenter1
+cd /var/lib/docker/
+</code></pre></div><p>Once in the <code>/var/lib/docker</code> directory using a simple <code>ls</code> and filtering the
+layers previous stored in the temporary file and expanding it I could find the
+specific layers that have the <code>pip.conf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/var/lib/docker/overlay2 
+<span style="color:#75715e"># ls | grep -f /tmp/layers | xargs find | grep pip.conf</span>
+e1kq2j71b7clcwtn0lbmqa1g9/diff/root/.pip/pip.conf
+hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf
+oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf
+</code></pre></div><p>So I accessed each of of those to confirm if the file was present or if was just
+its shadow left by the directory union.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/var/lib/docker/overlay2 
+<span style="color:#75715e"># cat e1kq2j71b7clcwtn0lbmqa1g9/diff/root/.pip/pip.conf</span>
+<span style="color:#f92672">[</span>global<span style="color:#f92672">]</span>
+index-url <span style="color:#f92672">=</span> https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist
+timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+extra-index-url <span style="color:#f92672">=</span> https://pypi.python.org/simpl
+
+/var/lib/docker/overlay2 
+<span style="color:#75715e"># cat hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf</span>
+cat: can<span style="color:#ae81ff">\&#39;</span>t open <span style="color:#e6db74">&#39;hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf&#39;</span>: No such device or address
+
+/var/lib/docker/overlay2 
+<span style="color:#75715e"># cat oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf</span>
+cat: can<span style="color:#ae81ff">\&#39;</span>t open <span style="color:#e6db74">&#39;oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf&#39;</span>: No such device or address
+</code></pre></div><p>So 1 of 3 layers have the file present so I have checked from which container
+that layer belong to and here&rsquo;s the surprise.</p>
+<p>That 1 layer is shared with 3 of 4 builds that we have created, meaning that
+during a <code>docker pull</code> three diferente containers could leak my <code>pip.conf</code>
+secret.</p>
+<h2 id="results">Results</h2>
+<p>The updated matrix consolidating the results on where our secrets have leaked.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:center">Runtime</th>
+<th style="text-align:right">Inspection</th>
+<th style="text-align:right">OverlayFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret:v1</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v2</td>
+<td style="text-align:center">No</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v3</td>
+<td style="text-align:center">No</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v4</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:right">Yes</td>
+<td style="text-align:right">No</td>
+</tr>
+</tbody>
+</table>
+<p>So even knowing that the file is not acessible from the container directly if
+you have access to pull the container on a full read-write system you would be
+able to retreive the secrets.</p>
+<p>But now what&rsquo;s the best way to build the container and do not have such issue?</p>
+<h2 id="solution">Solution</h2>
+<p>From 18.09 or newer Docker have introduced the Docker BuildKit that brings some
+extra funcionality to the Docker builds.</p>
+<p>The builds using BuildKit different from the legacy allows the usage of the
+<code>--secret</code> that allows the capacity of binding a file during build runtime
+similar to the tradicional runtime that we achieve with <code>-v</code> option.</p>
+<p>It&rsquo;s usage is quite simple let&rsquo;s build a container and run our tests again.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> --mount<span style="color:#f92672">=</span>type<span style="color:#f92672">=</span>secret,id<span style="color:#f92672">=</span>pip.conf,dst<span style="color:#f92672">=</span>/root/.pip/pip.conf <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>      pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker build --file Dockerfile  --secret id<span style="color:#f92672">=</span>pip.conf,src<span style="color:#f92672">=</span>pip.conf -t secret:v5 .
+</code></pre></div><p>Now that we have the <code>secret:v5</code> build lets confirm.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+➜ docker history secret:v5
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+266a21bb36ae   <span style="color:#ae81ff">36</span> seconds ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+&lt;missing&gt;      <span style="color:#ae81ff">11</span> days ago      /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0Bi</span>
+</code></pre></div><p>The history in this case is clean, not even mention the mount for <code>pip.conf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+❯ docker run -it secret:v5 cat /root/.pip/pip.conf
+cat: /root/.pip/pip.conf: No such file or directory
+</code></pre></div><p>The file is also not present on the system.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+❯ docker inspect secret:v5 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+cnpw0dw9o05lmdz3j9j62jzpt
+
+on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+/var/lib/docker/overlay2 <span style="color:#75715e"># </span>
+ls cnpw0dw9o05lmdz3j9j62jzpt | xargs find | grep pip.conf
+find: committed: No such file or directory
+find: diff: No such file or directory
+find: link: No such file or directory
+find: lower: No such file or directory
+find: work: No such file or directory
+</code></pre></div><p>And the most important one the file doesn&rsquo;t exist on the layer/directory that we just
+created meaning that if we use in a base image our scretes are safe.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.docker.com/develop/develop-images/build_enhancements/">https://docs.docker.com/develop/develop-images/build_enhancements/</a></li>
+<li><a href="https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html">https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html</a></li>
+<li><a href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/">https://docs.docker.com/storage/storagedriver/overlayfs-driver/</a></li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Using AWS Network ACLs With NAT Gateway</title>

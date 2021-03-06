@@ -5,7 +5,18 @@
     <link>https://hugoprudente.github.io/en/</link>
     <description>Recent content on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 11 Jul 2020 13:09:21 +0200</lastBuildDate><atom:link href="https://hugoprudente.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 Mar 2021 22:46:31 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Managing Secrets During Docker Build</title>
+      <link>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</guid>
+      <description>What would be the best way to manage my secrets during a docker build?
+Checking official and unofficial projects available in hub.docker.com, I have collected the 4 (four) most common cases on how users are storing and managing their secrets.
+There are cases that during the build you would use a token or secret file for fetch information from a repo or other application to setup a configuration that will not be possible during runtime.</description>
+    </item>
+    
     <item>
       <title>Using AWS Network ACLs With NAT Gateway</title>
       <link>https://hugoprudente.github.io/en/posts/using-aws-network-acls-with-natgateway/</link>

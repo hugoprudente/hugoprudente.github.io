@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://hugoprudente.github.io/pt/categories/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
@@ -15,9 +14,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/cloud-computing-virtualization/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -30,9 +27,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/cloud-computing-virtualization/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/http/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -45,9 +40,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/http/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -60,9 +53,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/linux/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -75,9 +66,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/linux/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/networking/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -90,9 +79,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/networking/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/os/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -105,9 +92,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/os/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/posts/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -120,9 +105,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/posts/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -135,9 +118,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/tcp/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -150,9 +131,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/tcp/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/udp/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -165,9 +144,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/udp/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/posts/usando-aws-network-acls-com-natgateway/</loc>
     <lastmod>2020-07-11T13:09:21+02:00</lastmod>
     <xhtml:link
@@ -180,9 +157,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/posts/usando-aws-network-acls-com-natgateway/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/containers/</loc>
     <lastmod>2020-01-21T21:23:25+00:00</lastmod>
     <xhtml:link
@@ -195,9 +170,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/containers/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/google/</loc>
     <lastmod>2020-01-21T21:23:25+00:00</lastmod>
     <xhtml:link
@@ -210,9 +183,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/google/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/kuberentes/</loc>
     <lastmod>2020-01-21T21:23:25+00:00</lastmod>
     <xhtml:link
@@ -225,9 +196,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/kuberentes/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</loc>
     <lastmod>2020-01-21T21:23:25+00:00</lastmod>
     <xhtml:link
@@ -240,9 +209,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/nginx/</loc>
     <lastmod>2020-01-21T21:23:25+00:00</lastmod>
     <xhtml:link
@@ -255,9 +222,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/nginx/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/posts/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
@@ -270,9 +235,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/posts/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/bash/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
@@ -285,9 +248,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/bash/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/tools/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
@@ -300,9 +261,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/tools/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/unix/</loc>
     <lastmod>2020-01-10T10:38:03+00:00</lastmod>
     <xhtml:link
@@ -315,9 +274,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/unix/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/automation/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -330,9 +287,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/automation/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/backups/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -345,9 +300,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/backups/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/books/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -360,9 +313,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/books/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/cloning/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -375,9 +326,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/cloning/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/code-review/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -390,9 +339,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/code-review/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/collaborative-software/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -405,9 +352,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/collaborative-software/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/communication/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -420,9 +365,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/communication/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/computing/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -435,9 +378,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/computing/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/configuration-management/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -450,9 +391,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/configuration-management/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/configuration-management-database/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -465,9 +404,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/configuration-management-database/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/continuous-integration-continuous-deployment-cicd/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -480,9 +417,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/continuous-integration-continuous-deployment-cicd/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/control-panel/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -495,9 +430,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/control-panel/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/distributed-filesystem/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -510,9 +443,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/distributed-filesystem/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/dns/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -525,9 +456,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/dns/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/editors/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -540,9 +469,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/editors/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/essentials/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -555,9 +482,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/essentials/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/it-asset-management/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -570,9 +495,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/it-asset-management/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/ldap/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -585,9 +508,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/ldap/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/log-management/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -600,9 +521,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/log-management/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/messaging/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -615,9 +534,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/messaging/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/metric-metric-collection/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -630,9 +547,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/metric-metric-collection/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/monitoring/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -645,9 +560,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/monitoring/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/monitoring/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -660,9 +573,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/monitoring/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/network-configuration-management/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -675,9 +586,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/network-configuration-management/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/news-letter/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -690,9 +599,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/news-letter/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/nosql/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -705,9 +612,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/nosql/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/orchestration/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -720,9 +625,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/orchestration/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/packaging/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -735,9 +638,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/packaging/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/programming/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -750,9 +651,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/programming/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/project-management/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -765,9 +664,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/project-management/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/protocol/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -780,9 +677,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/protocol/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/queueing/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -795,9 +690,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/queueing/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/rdbms/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -810,9 +703,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/rdbms/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/repositories/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -825,9 +716,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/repositories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/security/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -840,9 +729,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/security/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/service-discovery/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -855,9 +742,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/service-discovery/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/smtp/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -870,9 +755,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/smtp/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/ssh/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -885,9 +768,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/ssh/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/statistics/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -900,9 +781,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/statistics/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/storage/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -915,9 +794,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/storage/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/storage/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -930,9 +807,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/storage/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/categories/support-software/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -945,9 +820,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/categories/support-software/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/posts/sysadmin-devops-tools-and-frameworks/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -960,9 +833,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/posts/sysadmin-devops-tools-and-frameworks/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/ticketing-system/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -975,9 +846,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/ticketing-system/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/troubleshoot/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -990,9 +859,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/troubleshoot/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/version-control/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -1005,9 +872,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/version-control/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/virtualization/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -1020,9 +885,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/virtualization/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/vpn/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -1035,9 +898,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/vpn/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/web-emails/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -1050,9 +911,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/web-emails/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/wikis/</loc>
     <lastmod>2019-12-05T02:21:55+00:00</lastmod>
     <xhtml:link
@@ -1065,9 +924,7 @@
                 hreflang="pt"
                 href="https://hugoprudente.github.io/pt/tags/wikis/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://hugoprudente.github.io/pt/tags/imap/pop3/</loc>
     <xhtml:link
                 rel="alternate"
@@ -1080,5 +937,4 @@
                 href="https://hugoprudente.github.io/pt/tags/imap/pop3/"
                 />
   </url>
-  
 </urlset>
