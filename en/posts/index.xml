@@ -4,8 +4,545 @@
         <link>https://hugoprudente.github.io/en/posts/</link>
         <description>Recent content in Posts on Hugo Prudente</description>
         <generator>Hugo -- gohugo.io</generator>
-        <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate>
+        <language>en</language>
+        <lastBuildDate>Thu, 04 Mar 2021 22:46:31 +0000</lastBuildDate>
         <atom:link href="https://hugoprudente.github.io/en/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Managing Secrets During Docker Build</title>
+            <link>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</link>
+            <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+            
+            <guid>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</guid>
+            <description>What would be the best way to manage my secrets during a docker build?
+Checking official and unofficial projects available in hub.docker.com, I have collected the 4 (four) most common cases on how users are storing and managing their secrets.
+There are cases that during the build you would use a token or secret file for fetch information from a repo or other application to setup a configuration that will not be possible during runtime.</description>
+            <content type="html"><![CDATA[<p>What would be the best way to manage my secrets during a docker build?</p>
+<p>Checking official and unofficial projects available in <a href="https://hub.docker.com">hub.docker.com</a>,
+I have collected the 4 (four) most common cases on how users are storing and managing their secrets.</p>
+<p>There are cases that during the build you would use a token or secret file for fetch information from a
+repo or other application to setup a configuration that will not be possible during runtime.</p>
+<p>Some of those cases also doesn&rsquo;t fit the multistage building as fetching a package from pip.</p>
+<h2 id="scenarios">Scenarios</h2>
+<p>I need to install a <code>python</code> using a private pip that I created for this lab.</p>
+<p>To achieve that you only need to add <code>pip.conf</code> file as below to <code>/root/.pip/pip.conf</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[global]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index-url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">timeout</span><span style="color:#f92672">=</span><span style="color:#e6db74">60</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">extra-index-url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">https://pypi.python.org/simple</span>
+</span></span></code></pre></div><p>Looks simple, let&rsquo;s see how we manage it.</p>
+<h3 id="method-1">Method 1</h3>
+<p>Here we copy the <code>pip.conf</code> to the container and don&rsquo;t remove it on the end.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v1 .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v1
+</span></span><span style="display:flex;"><span>IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>0d6589d4b95f   About a minute ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">4</span> minutes ago        COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago          /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Let&rsquo;s check if the file on the end of the build is present and it was leaked.</p>
+<pre tabindex="0"><code>on ⛵ k3s (nerdweek) ~/post via 🐍 v3.9.1 (osx)
+❯ docker run -it secret:v1 cat /root/.pip/pip.conf
+[global]
+index-url = https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist
+timeout=60
+extra-index-url = https://pypi.python.org/simple
+</code></pre><h3 id="method-2">Method 2</h3>
+<p>Here we copy the <code>pip.conf</code> to the container and remove it with a <code>RUN</code> statement on the end.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v2 .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v2
+</span></span><span style="display:flex;"><span>IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>42f04cdc6577   <span style="color:#ae81ff">6</span> seconds ago   RUN /bin/sh -c rm /root/.pip/pip.conf <span style="color:#75715e"># buil…   0B        buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">4</span> minutes ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">7</span> minutes ago   COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago     /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Let&rsquo;s check again if the file was present.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker run -it secret:v2 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: No such file or directory
+</span></span></code></pre></div><h3 id="method-3">Method 3</h3>
+<p>Here we copy the <code>pip.conf</code> to the container and remove it in the same <code>RUN</code> statement as the <code>pip install</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v3 .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v3
+</span></span><span style="display:flex;"><span>IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>a2bf2672abaf   About a minute ago   RUN /bin/sh -c pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm…   14.1MB    buildkit.dockerfile.v0
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">17</span> minutes ago       COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago          /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Let&rsquo;s check once more if the file was present.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker run -it secret:v3 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: No such file or directory
+</span></span></code></pre></div><h3 id="method-4">Method 4</h3>
+<p>Here we create the <code>pip.conf</code> using the <code>generate.sh</code> script that receive the
+<code>SECRET</code> as <code>ARG</code> with the <code>--build-arg</code> options and we remove it on the same <code>RUN</code> statement.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>SECRET<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir -p /root/.pip
+</span></span><span style="display:flex;"><span>cat &gt; /root/.pip/pip.conf <span style="color:#e6db74">&lt;&lt; EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[global]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">index-url = https://hugo.prudente:${SECRET}@private.pip/playlist
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">timeout=60
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">extra-index-url = https://pypi.python.org/simple
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> SECRET<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> generate.sh /generate.sh<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> /generate.sh <span style="color:#e6db74">${</span>SECRET<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v4 --progress plain --build-arg SECRET<span style="color:#f92672">=</span>My$3cr3tP4$$ .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>➜ on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history -H secret:v4
+</span></span><span style="display:flex;"><span>IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>d2ca3623139f   <span style="color:#ae81ff">2</span> minutes ago   RUN |<span style="color:#ae81ff">1</span> SECRET<span style="color:#f92672">=</span>My$3cr3tP4$$ /b…   14.1MB    buildkit.dockerfile.v0
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">2</span> minutes ago   COPY generate.sh /generate.sh <span style="color:#75715e"># buildkit        261B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">2</span> minutes ago   ARG SECRET                                      0B        buildkit.dockerfile.v0
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago     /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Last but not least, let&rsquo;s check the presece of the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>❯ docker run -it secret:v4 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: No such file or directory
+</span></span></code></pre></div><p>The credential is not on the <code>pip.conf</code> file but it&rsquo;s visible during the <code>docker history</code>.</p>
+<h3 id="preliminary-results">Preliminary Results</h3>
+<p>Here is a matrix on where our secrets have been leaked.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:center">Runtime</th>
+<th style="text-align:right">Inspection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret:v1</td>
+<td style="text-align:center"><span style="color:red">Yes</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v2</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v3</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v4</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:red">Yes</span></td>
+</tr>
+</tbody>
+</table>
+<p>With the preliminary results we can already exclude methods 1 and 4 as we can
+consider them insecure due to the credentials being visible at some point.</p>
+<p>The method 4, I also used <code>--build-args SECRET=${SECRET}</code> and the secrets
+leaks on the same way.</p>
+<h2 id="dive-deep">Dive Deep</h2>
+<h3 id="overlayfs">OverlayFS</h3>
+<p>Is the kernel implementation for a union-filesystem, an overlay-filesystem tries
+to present a filesystem which is the result over overlaying one filesystem on
+top of the other.</p>
+<p><img src="/2021/03/overlayfs.png" alt="overlayfs.png"></p>
+<p>In short taking the example of the image above imagine you have 2 directories
+the <strong>lower</strong> and <strong>upper</strong> where the <strong>lower</strong> is a read-only directory for the
+consumer, but they are still read-write from the Linux Operational system.</p>
+<p>When a file is modified on the <strong>upper</strong> the change happens normally but if a
+change is made on a file of the <strong>lower</strong> directory a copy of it is created on the
+<strong>upper</strong> to become accessible, once the modification is complete another
+process is responsible to fetch the modification and write on the <strong>lower</strong>
+directory.</p>
+<p>So this union of directories merged together as one unique block limited by the
+cgroups is what docker and it&rsquo;s storage driver uses on our example.</p>
+<p>The AUFS that&rsquo;s also a union-filesystem also presents the same behaviour,
+although some of locations may be slightly different.</p>
+<h3 id="checking-the-filesystem">Checking the Filesystem</h3>
+<p>Now that I know how OverlayFS works let&rsquo;s isolate the directories (layers) used
+by the <code>python:latest</code> so we can filter out only the ones that we are interested
+on, the ones that have <code>pip.conf</code> file.</p>
+<p>Inspect the containers I can find the directories used on the OverlayFS.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect python:latest | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span>
+</span></span><span style="display:flex;"><span>9e7c768dda91c4fa7ed6a57c7cb784834033bff92bd11ff6d062d4de11c0f898
+</span></span><span style="display:flex;"><span>17bf53c98685ae36487eb55f0d2256d168f210a688ef51deef760de1a699cbdf
+</span></span><span style="display:flex;"><span>4cb1dbbf58a2b1ca8df6d9d977a66fe918aee21434fcd656f1a68f1f412d75ff
+</span></span><span style="display:flex;"><span>358dd0944f115e2a273c5259dd1432b44e36908cf223f8ce0d9f74550430f577
+</span></span><span style="display:flex;"><span>c034592b1a26552525742ed81e7fbce2139817b634d48db8349dbebf15a45914
+</span></span><span style="display:flex;"><span>19d471e0407c0f1ca14eb1cb8c46aaef9357037cad5dc170cb6a4af3c1feab40
+</span></span><span style="display:flex;"><span>e005796f193e62e9db78de1df20999daca1a96a0bebed19c1dd906b1b4da8542
+</span></span><span style="display:flex;"><span>badc6aa65b2d3f10b0cdff3fc04bf3a64b551af1dd9e01b6ecd38ed71abdc3da
+</span></span><span style="display:flex;"><span>8d6ff96b718838005288a94cdc9fd408d1f70d7e9cbab678ebeb4521d11b366d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect python:latest | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> &gt; layers.python
+</span></span></code></pre></div><p>With the layers saved in the file <code>layers.python</code> I can use a similar command to
+exclude the know python layers and get only the ones added by our build.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v1 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9
+</span></span><span style="display:flex;"><span>v6zy2xgzrow2mgpyq9d0vch6l
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v2 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>v6zy2xgzrow2mgpyq9d0vch6l
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9
+</span></span><span style="display:flex;"><span>oudofb9c0iaqog9sff81f8053
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v3 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9
+</span></span><span style="display:flex;"><span>hqsrze873a2uz7tjsgbqdo3sd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v4 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>78gz619okusgrq4jo4ek863ug
+</span></span><span style="display:flex;"><span>oq22x88p26hzqmr1w1qpf8mm4
+</span></span></code></pre></div><p>Now that we have the layers I have created a list just to make it simpler to
+find it when we check the directory.</p>
+<h4 id="accessing-the-overlayfs-directories">Accessing the OverlayFS directories</h4>
+<p>Using one of the commands below as root you will find the entry point where
+Docker Storage driver creates the file-system hierarchy used by the whole
+eco-system.</p>
+<p><strong>Linux</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /var/lib/docker/
+</span></span></code></pre></div><p><strong>MacOS</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -it --rm --privileged --pid<span style="color:#f92672">=</span>host justincormack/nsenter1
+</span></span><span style="display:flex;"><span>cd /var/lib/docker/
+</span></span></code></pre></div><p>Once in the <code>/var/lib/docker</code> directory using a simple <code>ls</code> and filtering the
+layers previous stored in the temporary file and expanding it I could find the
+specific layers that have the <code>pip.conf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ls | grep -f /tmp/layers | xargs find | grep pip.conf</span>
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9/diff/root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf
+</span></span></code></pre></div><p>So I accessed each of of those to confirm if the file was present or if was just
+its shadow left by the directory union.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cat e1kq2j71b7clcwtn0lbmqa1g9/diff/root/.pip/pip.conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>global<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index-url <span style="color:#f92672">=</span> https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist
+</span></span><span style="display:flex;"><span>timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>extra-index-url <span style="color:#f92672">=</span> https://pypi.python.org/simpl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cat hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf</span>
+</span></span><span style="display:flex;"><span>cat: can<span style="color:#ae81ff">\&#39;</span>t open <span style="color:#e6db74">&#39;hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf&#39;</span>: No such device or address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cat oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf</span>
+</span></span><span style="display:flex;"><span>cat: can<span style="color:#ae81ff">\&#39;</span>t open <span style="color:#e6db74">&#39;oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf&#39;</span>: No such device or address
+</span></span></code></pre></div><p>So 1 of 3 layers have the file present so I have checked from which container
+that layer belong to and here&rsquo;s the surprise.</p>
+<p>That 1 layer is shared with 3 of 4 builds that we have created, meaning that
+during a <code>docker pull</code> three diferente containers could leak my <code>pip.conf</code>
+secret.</p>
+<h2 id="results">Results</h2>
+<p>The updated matrix consolidating the results on where our secrets have leaked.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:center">Runtime</th>
+<th style="text-align:right">Inspection</th>
+<th style="text-align:right">OverlayFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret:v1</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v2</td>
+<td style="text-align:center">No</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v3</td>
+<td style="text-align:center">No</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v4</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:right">Yes</td>
+<td style="text-align:right">No</td>
+</tr>
+</tbody>
+</table>
+<p>So even knowing that the file is not acessible from the container directly if
+you have access to pull the container on a full read-write system you would be
+able to retreive the secrets.</p>
+<p>But now what&rsquo;s the best way to build the container and do not have such issue?</p>
+<h2 id="solution">Solution</h2>
+<p>From 18.09 or newer Docker have introduced the Docker BuildKit that brings some
+extra funcionality to the Docker builds.</p>
+<p>The builds using BuildKit different from the legacy allows the usage of the
+<code>--secret</code> that allows the capacity of binding a file during build runtime
+similar to the tradicional runtime that we achieve with <code>-v</code> option.</p>
+<p>It&rsquo;s usage is quite simple let&rsquo;s build a container and run our tests again.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> --mount<span style="color:#f92672">=</span>type<span style="color:#f92672">=</span>secret,id<span style="color:#f92672">=</span>pip.conf,dst<span style="color:#f92672">=</span>/root/.pip/pip.conf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build --file Dockerfile  --secret id<span style="color:#f92672">=</span>pip.conf,src<span style="color:#f92672">=</span>pip.conf -t secret:v5 .
+</span></span></code></pre></div><p>Now that we have the <code>secret:v5</code> build lets confirm.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v5
+</span></span><span style="display:flex;"><span>IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>266a21bb36ae   <span style="color:#ae81ff">36</span> seconds ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">11</span> days ago      /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0Bi</span>
+</span></span></code></pre></div><p>The history in this case is clean, not even mention the mount for <code>pip.conf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>❯ docker run -it secret:v5 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: No such file or directory
+</span></span></code></pre></div><p>The file is also not present on the system.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>❯ docker inspect secret:v5 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>cnpw0dw9o05lmdz3j9j62jzpt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>/var/lib/docker/overlay2 <span style="color:#75715e"># </span>
+</span></span><span style="display:flex;"><span>ls cnpw0dw9o05lmdz3j9j62jzpt | xargs find | grep pip.conf
+</span></span><span style="display:flex;"><span>find: committed: No such file or directory
+</span></span><span style="display:flex;"><span>find: diff: No such file or directory
+</span></span><span style="display:flex;"><span>find: link: No such file or directory
+</span></span><span style="display:flex;"><span>find: lower: No such file or directory
+</span></span><span style="display:flex;"><span>find: work: No such file or directory
+</span></span></code></pre></div><p>And the most important one the file doesn&rsquo;t exist on the layer/directory that we just
+created meaning that if we use in a base image our scretes are safe.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.docker.com/develop/develop-images/build_enhancements/">https://docs.docker.com/develop/develop-images/build_enhancements/</a></li>
+<li><a href="https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html">https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html</a></li>
+<li><a href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/">https://docs.docker.com/storage/storagedriver/overlayfs-driver/</a></li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Using AWS Network ACLs With NAT Gateway</title>
+            <link>https://hugoprudente.github.io/en/posts/using-aws-network-acls-with-natgateway/</link>
+            <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+            
+            <guid>https://hugoprudente.github.io/en/posts/using-aws-network-acls-with-natgateway/</guid>
+            <description>It’s quite common the mistakes made when using the AWS Network ACLs for adding that extra layer of security in your VPC.
+Given the fact that Network ACLs are stateless, meaning that the Inbound (Ingress) should have a matching rule for Outbound (Egress).
+With this post, you will learn how to identify such particularities using an AWS ElasticBeanstalk environment as an example, due to its sensitivity regarding network access requirements.</description>
+            <content type="html"><![CDATA[<p>It’s quite common the mistakes made when using the AWS Network ACLs for adding that extra layer of security in your VPC.</p>
+<p>Given the fact that Network ACLs are <strong>stateless</strong>, meaning that the Inbound (Ingress) should have a matching rule for Outbound (Egress).</p>
+<p>With this post, you will learn how to identify such particularities using an AWS ElasticBeanstalk environment as an example, due to its sensitivity regarding network access requirements.</p>
+<h2 id="common-issues">Common Issues</h2>
+<ul>
+<li>Fail to access any HTTPS/TLS endpoint resulting in timeout</li>
+<li>Fail to sync NTP servers</li>
+</ul>
+<h2 id="difference-between-security-group-and-network-acl-nacl">Difference between Security Group and Network ACL (NACL)</h2>
+<p>The main difference between the Security Group and the Network ACL (NACL) is the
+the context where they are applied and the type of rules they provided.</p>
+<ul>
+<li>
+<p>A Security Group:
+Stateful: Therefore you don&rsquo;t need a rule that allows response traffic for inbound requests.
+Local: Therefore it applies only to the instance or service to which the security group is attached to.</p>
+</li>
+<li>
+<p>A Network ACL:
+Stateless: Therefore this rule is required to allow response traffic for inbound requests on the outbound rules.
+Global: Therefore it applies to all services that are placed on the subnet that is attached to.</p>
+</li>
+</ul>
+<p><img src="/2020/11/nacl-example-diagram.png" alt="itlandscape.png"></p>
+<h2 id="scenario-1---web-tier-public-subnet-with-network-acl-without-aws-nat-gateway">Scenario 1 - (Web Tier) Public Subnet with Network ACL without AWS NAT Gateway.</h2>
+<p>Using the diagram below as an example to configure the Network ACL&rsquo;s for an ElasticBeanstalk environment.</p>
+<p>Diagram:</p>
+<pre tabindex="0"><code>+------------------+
+|                  |
+|   +----------+   |
+|   | INSTANCE |   |
+|   +----------+   |
+|   |  SG-001  |   |
+|   +----------+   |
++------------------+
+|    Subnet Pub    |
++------------------+
+         +   +--------------+
+         |---| ACL-001      |
+         v   +--------------+
++------------------+
+|       IGW        |
++------------------+
+</code></pre><p>As presented on the common issues, the simplified flow for UDP and HTTPS TCPDump packet below displays the return of 2 (two) actions from the EC2 belonging to the ElasticBeanstalk test environment.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>UDP 172.31.0.31:123 &gt; 0.amazon.pool.ntp.org
+</span></span><span style="display:flex;"><span>UDP 0.amazon.pool.ntp.org &gt; 172.31.0.31:2000
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>TCP 172.31.0.31:443 &gt; aws.amazon.com
+</span></span><span style="display:flex;"><span>TCP aws.amazon.com &gt; 172.31.0.31:3000
+</span></span></code></pre></div><p>As we notice from the packet analysis the returning port is ephemeral and as we already know that Network ACL are stateless we need to account for that during the rules creation. Due to the Security Group being stateful, the above behavior will work properly.</p>
+<h3 id="solution">Solution</h3>
+<p>The solution, in this case, is a mix between the Security Group (SG-001) and the Network ACLs (ACL-001) where we can see:</p>
+<p><em><strong>Security Group</strong></em> presents inbound traffic for TCP/HTTP, TCP/HTTPS for standard ports 80 and 443 from everywhere and outbound traffic from the instance to everywhere.</p>
+<h4 id="security-group-inbound-rule-sg-001">Security Group Inbound Rule (SG-001)</h4>
+<pre tabindex="0"><code>Type  |Protocol |Port Range |Source
+--------|-----------|-----------|------
+HTTP  |TCP  |80 |0.0.0.0/0
+HTTPS |TCP  |443  |0.0.0.0/0
+</code></pre><h4 id="security-group-outbound-rule-sg-001">Security Group Outbound Rule (SG-001)</h4>
+<pre tabindex="0"><code>Type  |Protocol |Port Range |Source
+--------|-----------|-----------|------
+All |Traffic  |ALL  |ALL  |0.0.0.0/0
+</code></pre><h4 id="network-acl-inbound-acl-001">Network ACL Inbound (ACL-001)</h4>
+<pre tabindex="0"><code>Rule #  Type  Protocol  Port Range  Destination Allow / Deny
+102 HTTP (80) TCP (6) 80  0.0.0.0/0 ALLOW
+103 HTTPS (443) TCP (6) 443 0.0.0.0/0 ALLOW
+201 Custom TCP Rule TCP (6) 1024-65535  0.0.0.0/0 ALLOW
+202 Custom UDP Rule UDP (17)  123 0.0.0.0/0 ALLOW
+* ALL Traffic ALL ALL 0.0.0.0/0 DENY
+</code></pre><h4 id="network-acl-outbond-acl-001">Network ACL Outbond (ACL-001)</h4>
+<pre tabindex="0"><code>Rule #  Type  Protocol  Port Range  Destination Allow / Deny
+101 HTTP (80) TCP (6) 80  0.0.0.0/0 ALLOW
+202 HTTPS (443) TCP (6) 443 0.0.0.0/0 ALLOW
+102 Custom TCP Rule TCP (6) 1024-65535  0.0.0.0/0 ALLOW
+103 Custom UDP Rule)  UDP (17)  1024-65535  0.0.0.0/0 ALLOW
+* ALL Traffic ALL ALL 0.0.0.0/0 DENY
+</code></pre><p>As we know that ElasticBeanstalk does more than serve traffic but also has agents that connect to AWS API&rsquo;s we notice two different sets of configurations in the Network ACL&rsquo;s.</p>
+<ul>
+<li>Rules 102 and 103 allow inbound traffic for ports 80 and 443 following by its outbound pair, the 102 and 103 that are responsible to allow ephemeral port out to answer the requests.</li>
+<li>Rules 202 and 203 are using in the reverse order, an agent will post from the EC2 to AWS API, we analyze it inverting the tables. In this case, outbound requires 80 and 443 for the request, and the response will return in an ephemeral port on the inbound rules.</li>
+</ul>
+<h2 id="scenario-2---worker-tier-private-subnet-with-network-acl-and-aws-nat-gateway">Scenario 2 - (Worker Tier) Private Subnet with Network ACL and AWS NAT Gateway.</h2>
+<p>Again using the diagram below as an example to configure the Network ACL&rsquo;s for an ElasticBeanstalk environment.</p>
+<p>Diagram:</p>
+<pre tabindex="0"><code>+------------------+
+|                  |
+|   +----------+   |
+|   | INSTANCE |   |
+|   +----------+   |
+|   |  SG-002  |   |
+|   +----------+   |
++------------------+
+|  Subnet Private  |
++------------------+
+          +
+          |   +--------------+
+          |---| ACL-002      |
+          v   +--------------+
++------------------+
+|                  |
+|   +----------+   |
+|   |  NAT GW  |   |
+|   |  SG-002  |   |
+|   +----------+   |
++------------------+
+|    Subnet Pub    |
++------------------+
+         +   +--------------+
+         |---| ACL-003      |
+         v   +--------------+
++------------------+
+|       IGW        |
++------------------+
+</code></pre><p>Same as before as presented on the common issues, the simplified flow for UDP and HTTPS TCPDump packet below displays the return of 2 (two) actions from the EC2 belonging to the ElasticBeanstalk test environment.</p>
+<pre tabindex="0"><code>UDP 172.31.0.31:123 &gt; 172.31.0.34:2000
+UDP 172.31.0.34:2000 &gt; 0.amazon.pool.ntp.org
+UDP 0.amazon.pool.ntp.org &gt; 172.31.0.34:2000
+UDP 172.31.0.34:2000 &gt; 172.31.0.31:3000
+ 
+TCP 172.31.0.31:443 &gt; 172.31.0.33:2000
+TCP 172.31.0.33:2000 &gt; aws.amazon.com
+TCP aws.amazon.com &gt; 172.31.0.33:3000
+TCP 172.31.0.33:3000 &gt; 172.31.0.31:3000
+</code></pre><p>We can see that this is a little bit different than before, now 4 (four) pairs of packets with a extra jump returning different ports for each pair.</p>
+<p>It happens due to a particular behavior of the AWS NAT Gateway. AWS Nat Gateway encapsulates packets to achieve higher performance, causing the change on the packet header during its life cycle.</p>
+<h3 id="solution-1">Solution</h3>
+<p>The solution, in this case, is a also a mix between the Security Group (SG-002) and the Network ACLs but this case ACL-002 and ACL-003 where we can see:</p>
+<h4 id="security-group-inbound-rule-sg-002">Security Group Inbound Rule (SG-002)</h4>
+<pre tabindex="0"><code>Type  Protocol  Port Range  Source
+HTTP  TCP 80  0.0.0.0/0
+Custom UDP  UDP 123 0.0.0.0/0
+Custom UDP  UDP 1024-65535  0.0.0.0/0
+Security Group Outbond Rule (SG-002)
+Type  Protocol  Port Range  Source
+All Traffic ALL ALL 0.0.0.0/0
+</code></pre><h4 id="network-acl-inbound---private-subnet-acl-002">Network ACL Inbound - Private Subnet (ACL-002)</h4>
+<pre tabindex="0"><code>Rule #  Type  Protocol  Port Range  Destination Allow / Deny
+102 HTTP (80) TCP (6) 80  0.0.0.0/0 ALLOW
+103 HTTPS (443) TCP (6) 443 0.0.0.0/0 ALLOW
+202 Custom TCP Rule TCP (6) 1024-65535  0.0.0.0/0 ALLOW
+203 Custom UDP Rule UDP (17)  123 0.0.0.0/0 ALLOW
+* ALL Traffic ALL ALL 0.0.0.0/0 DENY
+</code></pre><h4 id="network-acl-outbond---private-subnet-acl-002">Network ACL Outbond - Private Subnet (ACL-002)</h4>
+<pre tabindex="0"><code>Rule #  Type  Protocol  Port Range  Destination Allow / Deny
+202 HTTP (80) TCP (6) 80  0.0.0.0/0 ALLOW
+203 HTTPS (443) TCP (6) 443 0.0.0.0/0 ALLOW
+102 Custom TCP Rule TCP (6) 1024-65535  0.0.0.0/0 ALLOW
+103 Custom UDP Rule)  UDP (17)  1024-65535  0.0.0.0/0 ALLOW
+* ALL Traffic ALL ALL 0.0.0.0/0 DENY
+</code></pre><h4 id="network-acl-inbound---public-subnet-acl-003">Network ACL Inbound - Public Subnet (ACL-003)</h4>
+<pre tabindex="0"><code>Rule #  Type  Protocol  Port Range  Destination Allow / Deny
+102 HTTP (80) TCP (6) 80  0.0.0.0/0 ALLOW
+103 HTTPS (443) TCP (6) 443 0.0.0.0/0 ALLOW
+202 Custom TCP Rule TCP (6) 1024-65535  0.0.0.0/0 ALLOW
+203 Custom UDP Rule UDP (17)  123 0.0.0.0/0 ALLOW
+* ALL Traffic ALL ALL 0.0.0.0/0 DENY
+</code></pre><h4 id="network-acl-outbond---public-subnet-acl-003">Network ACL Outbond - Public Subnet (ACL-003)</h4>
+<pre tabindex="0"><code>Rule #  Type  Protocol  Port Range  Destination Allow / Deny
+202 HTTP (80) TCP (6) 80  0.0.0.0/0 ALLOW
+203 HTTPS (443) TCP (6) 443 0.0.0.0/0 ALLOW
+102 Custom TCP Rule TCP (6) 1024-65535  0.0.0.0/0 ALLOW
+103 Custom UDP Rule)  UDP (17)  1024-65535  0.0.0.0/0 ALLOW
+* ALL Traffic ALL ALL 0.0.0.0/0 DENY
+</code></pre><p>Again we have the rule set for the Network ACL where.</p>
+<ul>
+<li>ACL-002 Rules 102 and 103 allow inbound traffic for ports 80 and 443 following by its outbound pair, the 102 and 103 that are responsible to allow ephemeral port out to answer the requests.</li>
+<li>ACL-002 Rules 202 and 203 are using in the reverse order, an agent will post from the EC2 to AWS API, we analyze it inverting the tables. In this case, outbound requires 80 and 443 for the request, and the response will return in an ephemeral port on the inbound rules.</li>
+<li>We would expect only outbound traffic for the NAT Gateway, but due to the encapsulation, NAT Gateway is opening a new TCP connection with the backend using the new port requiring the same set as before.</li>
+</ul>
+<p>These problems only happen if you tight the security on the Network ACL used by the AWS Natgateway, as the AWS default NACL that allows all the traffic inbound and outbound.</p>
+<p>References:</p>
+<ul>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html">AWS User Guide for VPC ACLs</a></li>
+<li><a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">AWS User Guide for VPC NAT Gateway</a></li>
+</ul>
+]]></content>
+        </item>
         
         <item>
             <title>Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</title>
@@ -17,7 +554,7 @@
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
 Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
- NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
+NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google) During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
             <content type="html"><![CDATA[<p>Quite often I&rsquo;m seeing people having trouble using the <strong>Kubernetes Ingress Controller</strong> featuring <strong>Nginx</strong>.</p>
 <p>The principal issue reported by the community is the annotation <code>nginx.ingress.kubernetes.io/rewrite-target: /</code> not working.</p>
 <p>The cause of the not working <em>tag</em> is the the <code>ingres-controller</code> being used. Let me clarify!</p>
@@ -29,20 +566,20 @@ Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes 
 <p>During the troubleshoot the first thing that we must define is which <code>ingress-controller</code> for <strong>Nginx</strong> is being used:</p>
 <p>With <strong>helm</strong> we can check from the repository that it was installed from:</p>
 <p>Provided by NGINX</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">○ → helm repo add nginx-stable https://helm.nginx.com/stable
-○ → helm search hub nginx-ingress
-URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
-https://hub.helm.sh/charts/nginx/nginx-ingress          0.4.1           1.6.1           NGINX Ingress Controller                          
-</code></pre></div><p>Provided by Kubernetes</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">○ → helm repo add stable https://kubernetes-charts.storage.googleapis.com
-○ → helm search hub nginx-ingress
-URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
-https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1          An nginx Ingress controller that uses ConfigMap...
-</code></pre></div><p>Alternatively if the solution was not deployed using <strong>Helm</strong> you can define the origin of the <code>ingres-controller</code> project by check the container image using the following command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">○ → kubectl describe deployment  | grep Image
-    Image:       quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.27.1
-    Image:       nginx/nginx-ingress:1.6.1
-</code></pre></div><p>From the <a href="https://github.com/nginxinc/kubernetes-ingress/">NGINX Ingress Controller for Kubernetes</a>, GitHub page we can confirm the ownership of the image <strong>nginx-ingress:1.6.1</strong>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>○ → helm repo add nginx-stable https://helm.nginx.com/stable
+</span></span><span style="display:flex;"><span>○ → helm search hub nginx-ingress
+</span></span><span style="display:flex;"><span>URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
+</span></span><span style="display:flex;"><span>https://hub.helm.sh/charts/nginx/nginx-ingress          0.4.1           1.6.1           NGINX Ingress Controller                          
+</span></span></code></pre></div><p>Provided by Kubernetes</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>○ → helm repo add stable https://kubernetes-charts.storage.googleapis.com
+</span></span><span style="display:flex;"><span>○ → helm search hub nginx-ingress
+</span></span><span style="display:flex;"><span>URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
+</span></span><span style="display:flex;"><span>https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1          An nginx Ingress controller that uses ConfigMap...
+</span></span></code></pre></div><p>Alternatively if the solution was not deployed using <strong>Helm</strong> you can define the origin of the <code>ingres-controller</code> project by check the container image using the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>○ → kubectl describe deployment  | grep Image
+</span></span><span style="display:flex;"><span>    Image:       quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.27.1
+</span></span><span style="display:flex;"><span>    Image:       nginx/nginx-ingress:1.6.1
+</span></span></code></pre></div><p>From the <a href="https://github.com/nginxinc/kubernetes-ingress/">NGINX Ingress Controller for Kubernetes</a>, GitHub page we can confirm the ownership of the image <strong>nginx-ingress:1.6.1</strong>.</p>
 <p>From the <a href="https://github.com/kubernetes/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>, GitHub page we can also confirm that the ownership of image <strong>nginx-ingress-controller:0.27.1</strong>.</p>
 <p>Now that we defined the used project we can move forward with it&rsquo;s configuration:</p>
 <h1 id="nginx-ingress-controller-for-kubernetes">NGINX Ingress Controller for Kubernetes</h1>
@@ -50,41 +587,41 @@ https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1  
 <p>The tags for the this projects are <code>nginx.org</code> and <code>nginx.com</code> for the paid extra features.</p>
 <p>Examples exploring the features of this project can be found here on the <a href="https://github.com/nginxinc/kubernetes-ingress/tree/v1.6.1/examples">GitHub</a></p>
 <p>Example for rewrite feature:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: extensions/v1beta1
-<span style="color:#66d9ef">kind</span>: Ingress
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">name</span>: cafe-ingress
-  <span style="color:#66d9ef">annotations</span>:
-    <span style="color:#66d9ef">nginx.org/rewrites</span>: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">rules</span>:
-  - <span style="color:#66d9ef">host</span>: cafe.example.com
-    <span style="color:#66d9ef">http</span>:
-      <span style="color:#66d9ef">paths</span>:
-      - <span style="color:#66d9ef">path</span>: /tea/
-        <span style="color:#66d9ef">backend</span>:
-          <span style="color:#66d9ef">serviceName</span>: tea-svc
-          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
-</code></pre></div><h1 id="kubernetes-nginx-ingress-controller">Kubernetes NGINX Ingress Controller</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">extensions/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cafe-ingress</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nginx.org/rewrites</span>: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">host</span>: <span style="color:#ae81ff">cafe.example.com</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tea/</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">tea-svc</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><h1 id="kubernetes-nginx-ingress-controller">Kubernetes NGINX Ingress Controller</h1>
 <p>Maintained by the Kubernetes community, the documentation can be found her on <a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>:</p>
 <p>The tags for this project is <code>nginx.ingress.kubernetes.io/</code> and has no extra features.</p>
 <p>Examples exploring the features of this project can be found here on the <a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples">GitHub</a></p>
 <p>Example for rewrite feature:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: networking.k8s.io/v1beta1
-<span style="color:#66d9ef">kind</span>: Ingress
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">name</span>: cafe-ingress
-  <span style="color:#66d9ef">annotations</span>:
-    <span style="color:#66d9ef">nginx.ingress.kubernetes.io/rewrite-target</span>: /
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">rules</span>:
-  - <span style="color:#66d9ef">http</span>:
-      <span style="color:#66d9ef">paths</span>:
-      - <span style="color:#66d9ef">path</span>: /tea
-        <span style="color:#66d9ef">backend</span>:
-          <span style="color:#66d9ef">serviceName</span>: tea-svc
-          <span style="color:#66d9ef">servicePort</span>: <span style="color:#ae81ff">80</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cafe-ingress</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nginx.ingress.kubernetes.io/rewrite-target</span>: <span style="color:#ae81ff">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tea</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">tea-svc</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><hr>
 <p>The projects are a couple months difference from each other and there&rsquo;s no clear explanation on why the Kuberenetes Ingress Controller had chosen that exactly name as the NGINX one were already being maintained.</p>
 <p>On summary the names are quite similar and on a Bag of Words they could be even considered the same, so we need to be alert to not deploy <em>bananas</em> thinking that they are <em>apples</em></p>
 ]]></content>
@@ -209,9 +746,9 @@ Sadly the original article is not available anymore, but from that time now rsyn
 </tbody>
 </table>
 <h3 id="original-output">Original Output</h3>
-<pre><code># method 1
+<pre tabindex="0"><code># method 1
 ~/test $ /usr/bin/time -v  rsync -a --delete empty/ a/
-        Command being timed: &quot;rsync -a --delete empty/ a/&quot;
+        Command being timed: &#34;rsync -a --delete empty/ a/&#34;
         User time (seconds): 1.31
         System time (seconds): 10.60
         Percent of CPU this job got: 95%
@@ -236,7 +773,7 @@ Sadly the original article is not available anymore, but from that time now rsyn
         Exit status: 0
 
 # method 2
-        Command being timed: &quot;find b/ -type f -delete&quot;
+        Command being timed: &#34;find b/ -type f -delete&#34;
         User time (seconds): 0.41
         System time (seconds): 14.46
         Percent of CPU this job got: 52%
@@ -262,7 +799,7 @@ Sadly the original article is not available anymore, but from that time now rsyn
 # method 3
 find c/ -type f | xargs -L 100 rm
 ~/test $ /usr/bin/time -v ./delete.sh
-        Command being timed: &quot;./delete.sh&quot;
+        Command being timed: &#34;./delete.sh&#34;
         User time (seconds): 2.06
         System time (seconds): 20.60
         Percent of CPU this job got: 54%
@@ -289,7 +826,7 @@ find c/ -type f | xargs -L 100 rm
 # method 4
 find d/ -type f | xargs -L 100 -P 100 rm
 ~/test $ /usr/bin/time -v ./delete.sh
-        Command being timed: &quot;./delete.sh&quot;
+        Command being timed: &#34;./delete.sh&#34;
         User time (seconds): 2.86
         System time (seconds): 27.82
         Percent of CPU this job got: 89%
@@ -315,7 +852,7 @@ find d/ -type f | xargs -L 100 -P 100 rm
 
 # method 5
 ~/test $ /usr/bin/time -v rm -rf f
-        Command being timed: &quot;rm -rf f&quot;
+        Command being timed: &#34;rm -rf f&#34;
         User time (seconds): 0.20
         System time (seconds): 14.80
         Percent of CPU this job got: 47%
@@ -339,7 +876,7 @@ find d/ -type f | xargs -L 100 -P 100 rm
         Page size (bytes): 4096
         Exit status: 0
 </code></pre><h3 id="hardware-specification">Hardware specification</h3>
-<pre><code>Summary:        HP DL360 G7, 2 x Xeon E5620 2.40GHz, 23.5GB / 24GB 1333MHz
+<pre tabindex="0"><code>Summary:        HP DL360 G7, 2 x Xeon E5620 2.40GHz, 23.5GB / 24GB 1333MHz
 Processors:     2 (of 16) x Xeon E5620 2.40GHz (16 cores)
 Memory:         23.5GB
 Disk:           cciss/c0d0 (cciss0): 300GB (4%) RAID-10
@@ -385,7 +922,7 @@ Instead of using find and xargs, Lee ingeniously takes the advantage of rsync th
 </tbody>
 </table>
 <h3 id="hardware-specification-1">Hardware Specification</h3>
-<pre><code>CPU: Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
+<pre tabindex="0"><code>CPU: Intel(R) Core(TM)2 Duo CPU E8400 @ 3.00GHz
 MEM: 4G
 HD: ST3250318AS: 250G/7200RPM
 </code></pre><h2 id="footnotes">Footnotes</h2>

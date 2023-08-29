@@ -5,17 +5,41 @@
     <link>https://hugoprudente.github.io/en/categories/</link>
     <description>Recent content in Categories on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate>
-    
-	<atom:link href="https://hugoprudente.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en</language>
+    <lastBuildDate>Thu, 04 Mar 2021 22:46:31 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/en/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cloud Computing &amp; Virtualization</title>
       <link>https://hugoprudente.github.io/en/categories/cloud-computing-virtualization/</link>
-      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
       
       <guid>https://hugoprudente.github.io/en/categories/cloud-computing-virtualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Essentials</title>
+      <link>https://hugoprudente.github.io/en/categories/essentials/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/categories/essentials/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://hugoprudente.github.io/en/categories/networking/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/categories/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OS</title>
+      <link>https://hugoprudente.github.io/en/categories/os/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/categories/os/</guid>
       <description></description>
     </item>
     
@@ -29,29 +53,11 @@
     </item>
     
     <item>
-      <title>OS</title>
-      <link>https://hugoprudente.github.io/en/categories/os/</link>
-      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
-      
-      <guid>https://hugoprudente.github.io/en/categories/os/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Automation</title>
       <link>https://hugoprudente.github.io/en/categories/automation/</link>
       <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
       
       <guid>https://hugoprudente.github.io/en/categories/automation/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Essentials</title>
-      <link>https://hugoprudente.github.io/en/categories/essentials/</link>
-      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
-      
-      <guid>https://hugoprudente.github.io/en/categories/essentials/</guid>
       <description></description>
     </item>
     

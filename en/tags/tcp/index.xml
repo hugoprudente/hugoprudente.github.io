@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TCP on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/en/tags/tcp/</link>
+    <description>Recent content in TCP on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 11 Jul 2020 13:09:21 +0200</lastBuildDate><atom:link href="https://hugoprudente.github.io/en/tags/tcp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Using AWS Network ACLs With NAT Gateway</title>
+      <link>https://hugoprudente.github.io/en/posts/using-aws-network-acls-with-natgateway/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/posts/using-aws-network-acls-with-natgateway/</guid>
+      <description>It’s quite common the mistakes made when using the AWS Network ACLs for adding that extra layer of security in your VPC.
+Given the fact that Network ACLs are stateless, meaning that the Inbound (Ingress) should have a matching rule for Outbound (Egress).
+With this post, you will learn how to identify such particularities using an AWS ElasticBeanstalk environment as an example, due to its sensitivity regarding network access requirements.</description>
+    </item>
+    
+  </channel>
+</rss>

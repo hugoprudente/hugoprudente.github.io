@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Packaging on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/pt-br/tags/packaging/</link>
+    <description>Recent content in Packaging on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Thu, 05 Dec 2019 02:21:55 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/pt-br/tags/packaging/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sysadmin Devops Tools and Frameworks</title>
+      <link>https://hugoprudente.github.io/pt-br/posts/sysadmin-devops-tools-and-frameworks/</link>
+      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/pt-br/posts/sysadmin-devops-tools-and-frameworks/</guid>
+      <description>O quanto dificil como SysAdmin/DevOps é se manter atualizado em todas as ferramentas, plataformas e frameworks disponíveis no mercado?
+3 anos atrás, Jeferson Norona #LinuxTips (VAI), postou em suas redes sociais sobre um projeto onde reune e consolida as principais ferramentas e frameworks para facilitar a vida do SysAdmin/DevOps.
+O projeto foi criado por Alen Krmelj e é magnífico!
+http://sysadmin.it-landscape.info/</description>
+    </item>
+    
+  </channel>
+</rss>

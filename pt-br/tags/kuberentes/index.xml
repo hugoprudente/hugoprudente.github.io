@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kuberentes on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/pt-br/tags/kuberentes/</link>
+    <description>Recent content in Kuberentes on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/pt-br/tags/kuberentes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</title>
+      <link>https://hugoprudente.github.io/pt-br/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</link>
+      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/pt-br/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</guid>
+      <description>Vejo sempre pessoas com problemas utilizando o Kubernetes Ingress Controller tipo Nginx.
+O principal problema reportado na comunidade é na anotação nginx.ingress.kubernetes.io/rewrite-target: / não funcionando.
+A causa da tag não funcionando é do ingres-controller sendo utilizado. Vamos clarificar!
+Geralmente vamos ao google.com e procuramos pelas seguintes palavras &amp;ldquo;kuberentes ingress controller&amp;rdquo;, isso retornara 2 projetos Oficiais, por duas companhias diferentes.
+NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google) Durante o troubleshoot o primeiro passo é definir qual ingress-controller do Nginx está sendo utilizado:</description>
+    </item>
+    
+  </channel>
+</rss>

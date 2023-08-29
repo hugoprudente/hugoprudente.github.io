@@ -5,26 +5,95 @@
     <link>https://hugoprudente.github.io/en/tags/</link>
     <description>Recent content in Tags on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate>
-    
-	<atom:link href="https://hugoprudente.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en</language>
+    <lastBuildDate>Thu, 04 Mar 2021 22:46:31 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/en/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C</title>
-      <link>https://hugoprudente.github.io/en/tags/c/</link>
-      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      <title>Containers</title>
+      <link>https://hugoprudente.github.io/en/tags/containers/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
       
-      <guid>https://hugoprudente.github.io/en/tags/c/</guid>
+      <guid>https://hugoprudente.github.io/en/tags/containers/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Containers</title>
-      <link>https://hugoprudente.github.io/en/tags/containers/</link>
-      <pubDate>Tue, 21 Jan 2020 21:23:25 +0000</pubDate>
+      <title>Credentials</title>
+      <link>https://hugoprudente.github.io/en/tags/credentials/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
       
-      <guid>https://hugoprudente.github.io/en/tags/containers/</guid>
+      <guid>https://hugoprudente.github.io/en/tags/credentials/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://hugoprudente.github.io/en/tags/docker/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Secrets</title>
+      <link>https://hugoprudente.github.io/en/tags/secrets/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/secrets/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://hugoprudente.github.io/en/tags/security/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vault</title>
+      <link>https://hugoprudente.github.io/en/tags/vault/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/vault/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTTP</title>
+      <link>https://hugoprudente.github.io/en/tags/http/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://hugoprudente.github.io/en/tags/linux/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TCP</title>
+      <link>https://hugoprudente.github.io/en/tags/tcp/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/tcp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>UDP</title>
+      <link>https://hugoprudente.github.io/en/tags/udp/</link>
+      <pubDate>Sat, 11 Jul 2020 13:09:21 +0200</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/udp/</guid>
       <description></description>
     </item>
     
@@ -61,6 +130,15 @@
       <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
       
       <guid>https://hugoprudente.github.io/en/tags/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C</title>
+      <link>https://hugoprudente.github.io/en/tags/c/</link>
+      <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/tags/c/</guid>
       <description></description>
     </item>
     
@@ -151,15 +229,6 @@
       <pubDate>Fri, 17 Jan 2020 16:48:29 +0000</pubDate>
       
       <guid>https://hugoprudente.github.io/en/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Linux</title>
-      <link>https://hugoprudente.github.io/en/tags/linux/</link>
-      <pubDate>Fri, 10 Jan 2020 10:38:03 +0000</pubDate>
-      
-      <guid>https://hugoprudente.github.io/en/tags/linux/</guid>
       <description></description>
     </item>
     
@@ -308,15 +377,6 @@
     </item>
     
     <item>
-      <title>HTTP</title>
-      <link>https://hugoprudente.github.io/en/tags/http/</link>
-      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
-      
-      <guid>https://hugoprudente.github.io/en/tags/http/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>IT Asset Management</title>
       <link>https://hugoprudente.github.io/en/tags/it-asset-management/</link>
       <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
@@ -439,15 +499,6 @@
       <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
       
       <guid>https://hugoprudente.github.io/en/tags/repositories/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Security</title>
-      <link>https://hugoprudente.github.io/en/tags/security/</link>
-      <pubDate>Thu, 05 Dec 2019 02:21:55 +0000</pubDate>
-      
-      <guid>https://hugoprudente.github.io/en/tags/security/</guid>
       <description></description>
     </item>
     

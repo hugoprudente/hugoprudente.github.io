@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Hugo Prudente ">
+<meta name="description" content="Qual seria a melhor maneira de gerenciar meus segredos durante uma compilação do docker?
+Verificando projetos oficiais e não oficiais disponíveis em [hub.docker.com] (https://hub.docker.com), Reuni os 4 (quatro) casos mais comuns de como os usuários armazenam e gerenciam seus segredos.
+Há casos em que durante a construção você usaria um token ou arquivo secreto para buscar informações de um repositório ou outro aplicativo para definir uma configuração que não será possível durante o tempo de execução." />
+<meta name="keywords" content="posts, programming, devops, sysadmin, security, automation, aws, Containers, Security, Docker, Credentials, Secrets, Vault" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://hugoprudente.github.io/pt-br/posts/gerenciando-segredos-durante-docker-build/" />
+
+
+    <title>
+        
+            Gerenciando Segredos Durante Docker Build :: Hugo Prudente  — devops
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="/main.b78c3be9451dc4ca61ca377f3dc2cf2e6345a44c2bae46216a322ef366daa399.css" integrity="sha256-t4w76UUdxMphyjd/PcLPLmNFpEwrrkYhajIu82bao5k=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="Gerenciando Segredos Durante Docker Build">
+<meta itemprop="description" content="Qual seria a melhor maneira de gerenciar meus segredos durante uma compilação do docker?
+Verificando projetos oficiais e não oficiais disponíveis em [hub.docker.com] (https://hub.docker.com), Reuni os 4 (quatro) casos mais comuns de como os usuários armazenam e gerenciam seus segredos.
+Há casos em que durante a construção você usaria um token ou arquivo secreto para buscar informações de um repositório ou outro aplicativo para definir uma configuração que não será possível durante o tempo de execução."><meta itemprop="datePublished" content="2021-03-04T22:46:31+00:00" />
+<meta itemprop="dateModified" content="2021-03-04T22:46:31+00:00" />
+<meta itemprop="wordCount" content="1875"><meta itemprop="image" content="https://hugoprudente.github.io"/>
+<meta itemprop="keywords" content="Containers,Security,Docker,Credentials,Secrets,Vault," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://hugoprudente.github.io"/>
+
+<meta name="twitter:title" content="Gerenciando Segredos Durante Docker Build"/>
+<meta name="twitter:description" content="Qual seria a melhor maneira de gerenciar meus segredos durante uma compilação do docker?
+Verificando projetos oficiais e não oficiais disponíveis em [hub.docker.com] (https://hub.docker.com), Reuni os 4 (quatro) casos mais comuns de como os usuários armazenam e gerenciam seus segredos.
+Há casos em que durante a construção você usaria um token ou arquivo secreto para buscar informações de um repositório ou outro aplicativo para definir uma configuração que não será possível durante o tempo de execução."/>
+
+
+
+
+
+    <meta property="article:section" content="Cloud Computing &amp; Virtualization" />
+
+    <meta property="article:section" content="Essentials" />
+
+
+
+    <meta property="article:published_time" content="2021-03-04 22:46:31 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-154006380-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/pt-br/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                make</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/pt-br/posts">Blog</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        9 minutos
+
+         | Também disponível em
+          
+              <a href="https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/"><span class="flag fi fi-gb"></span></a>
+          
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://hugoprudente.github.io/pt-br/posts/gerenciando-segredos-durante-docker-build/">Gerenciando Segredos Durante Docker Build</a>
+      </h1>
+
+      
+
+      
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">Índice</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#cenários">Cenários</a>
+      <ul>
+        <li><a href="#método-1">Método 1</a></li>
+        <li><a href="#método-2">Método 2</a></li>
+        <li><a href="#método-3">Método 3</a></li>
+        <li><a href="#método-4">Método 4</a></li>
+        <li><a href="#resultados-preliminares">Resultados preliminares</a></li>
+      </ul>
+    </li>
+    <li><a href="#mergulho-profundo">Mergulho profundo</a>
+      <ul>
+        <li><a href="#overlayfs">OverlayFS</a></li>
+        <li><a href="#verificando-o-sistema-de-arquivos">Verificando o sistema de arquivos</a></li>
+      </ul>
+    </li>
+    <li><a href="#resultados">Resultados</a></li>
+    <li><a href="#solução">Solução</a></li>
+    <li><a href="#referências">Referências</a></li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <p>Qual seria a melhor maneira de gerenciar meus segredos durante uma compilação do docker?</p>
+<p>Verificando projetos oficiais e não oficiais disponíveis em [hub.docker.com] (<a href="https://hub.docker.com">https://hub.docker.com</a>),
+Reuni os 4 (quatro) casos mais comuns de como os usuários armazenam e gerenciam seus segredos.</p>
+<p>Há casos em que durante a construção você usaria um token ou arquivo secreto para buscar informações de um
+repositório ou outro aplicativo para definir uma configuração que não será possível durante o tempo de execução.</p>
+<p>Alguns desses casos também não se encaixam na compilação multistage como obter um pacote do pip.</p>
+<h2 id="cenários">Cenários</h2>
+<p>Preciso instalar um <code>python</code> usando um pip privado que criei para este laboratório.</p>
+<p>Para conseguir isso, você só precisa adicionar o arquivo <code>pip.conf</code> conforme abaixo em<code> / root / .pip / pip.conf</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[global]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">index-url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">https: //hugo.prudente: My$3cr3tP4$$@private.pip/playlist</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">tempo limite</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">60</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">extra-index-url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">https://pypi.python.org/simple</span>
+</span></span></code></pre></div><p>Parece simples, vamos ver como o administramos.</p>
+<h3 id="método-1">Método 1</h3>
+<p>Aqui, copiamos o <code>pip.conf</code> para o contêiner e não o removemos no final.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v1 .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v1
+</span></span><span style="display:flex;"><span>IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>0d6589d4b95f   About a minute ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">4</span> minutes ago        COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago          /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Vamos verificar se o arquivo no final da compilação está presente e não.</p>
+<pre tabindex="0"><code>on ⛵ k3s (nerdweek) ~/post via 🐍 v3.9.1 (osx)
+❯ docker run -it secret:v1 cat /root/.pip/pip.conf
+[global]
+index-url = https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist
+timeout=60
+extra-index-url = https://pypi.python.org/simple
+</code></pre><h3 id="método-2">Método 2</h3>
+<p>Aqui, copiamos o <code>pip.conf</code> para o contêiner e o removemos com uma instrução<code> RUN</code> no final.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v2 .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v2
+</span></span><span style="display:flex;"><span>IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>42f04cdc6577   <span style="color:#ae81ff">6</span> seconds ago   RUN /bin/sh -c rm /root/.pip/pip.conf <span style="color:#75715e"># buil…   0B        buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">4</span> minutes ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">7</span> minutes ago   COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago     /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Vamos verificar novamente se o arquivo estava presente.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker run -it secret:v2 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: No such file or directory
+</span></span></code></pre></div><h3 id="método-3">Método 3</h3>
+<p>Aqui, copiamos o <code>pip.conf</code> para o contêiner e o removemos na mesma instrução<code> RUN</code> do <code>pip install</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pip.conf /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v3 .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v3
+</span></span><span style="display:flex;"><span>IMAGE          CREATED              CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>a2bf2672abaf   About a minute ago   RUN /bin/sh -c pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm…   14.1MB    buildkit.dockerfile.v0
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">17</span> minutes ago       COPY pip.conf /root/.pip/pip.conf <span style="color:#75715e"># buildkit    200B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago          /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Vamos verificar mais uma vez se o arquivo estava presente.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker run -it secret:v3 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: No such file or directory
+</span></span></code></pre></div><h3 id="método-4">Método 4</h3>
+<p>Aqui criamos o <code>pip.conf</code> usando o script<code> generate.sh</code> que recebe o
+<code>SECRET</code> como<code> ARG</code> com as opções <code>--build-arg</code> e o removemos na mesma instrução<code> RUN</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>SECRET<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mkdir -p /root/.pip
+</span></span><span style="display:flex;"><span>cat &gt; /root/.pip/pip.conf <span style="color:#e6db74">&lt;&lt; EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">[global]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">index-url = https://hugo.prudente:${SECRET}@private.pip/playlist
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">timeout=60
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">extra-index-url = https://pypi.python.org/simple
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ARG</span> SECRET<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> generate.sh /generate.sh<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> /generate.sh <span style="color:#e6db74">${</span>SECRET<span style="color:#e6db74">}</span> <span style="color:#f92672">&amp;&amp;</span> pip install playlist <span style="color:#f92672">&amp;&amp;</span> rm /root/.pip/pip.conf<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build -t secret:v4 --progress plain --build-arg SECRET<span style="color:#f92672">=</span>My$3cr3tP4$$ .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>➜ on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history -H secret:v4
+</span></span><span style="display:flex;"><span>IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>d2ca3623139f   <span style="color:#ae81ff">2</span> minutes ago   RUN |<span style="color:#ae81ff">1</span> SECRET<span style="color:#f92672">=</span>My$3cr3tP4$$ /b…   14.1MB    buildkit.dockerfile.v0
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">2</span> minutes ago   COPY generate.sh /generate.sh <span style="color:#75715e"># buildkit        261B      buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">2</span> minutes ago   ARG SECRET                                      0B        buildkit.dockerfile.v0
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">10</span> days ago     /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0B</span>
+</span></span></code></pre></div><p>Por último, mas não menos importante, vamos verificar a presença do arquivo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>no ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~ / postar via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>❯ docker run -it secret: v4 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: Esse arquivo ou diretório não existe
+</span></span></code></pre></div><p>A credencial não está no arquivo <code>pip.conf</code>, mas é visível durante o<code> histórico do docker</code>.</p>
+<h3 id="resultados-preliminares">Resultados preliminares</h3>
+<p>Aqui está uma matriz de onde nossos segredos foram revelados.</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th style="text-align:center">Tempo de execução</th>
+<th style="text-align:right">Inspeção</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret:v1</td>
+<td style="text-align:center"><span style="color:red">Yes</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v2</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v3</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:green">No</span></td>
+</tr>
+<tr>
+<td>secret:v4</td>
+<td style="text-align:center"><span style="color:green">No</span></td>
+<td style="text-align:right"><span style="color:red">Yes</span></td>
+</tr>
+</tbody>
+</table>
+<p>Com os resultados preliminares, já podemos excluir os métodos 1 e 4, pois podemos
+considerá-los inseguros devido às credenciais serem visíveis em algum ponto.</p>
+<p>O método 4, eu também usei <code>--build-args SECRET=${SECRET}</code> e os segredos foram revelados da mesma maneira.</p>
+<h2 id="mergulho-profundo">Mergulho profundo</h2>
+<h3 id="overlayfs">OverlayFS</h3>
+<p>É a implementação do kernel para um sistema de arquivos de união, um sistema de arquivos de sobreposição tenta
+para apresentar um sistema de arquivos que é o resultado sobrepondo um sistema de arquivos em
+em cima do outro.</p>
+<p><img src="/2021/03/overlayfs.png" alt="overlayfs.png"></p>
+<p>Resumindo, pegando o exemplo da imagem acima, imagine que você tem 2 diretórios
+o <strong>inferior</strong> e <strong>superior</strong>, onde o ** inferior ** é um diretório somente leitura para o
+consumidor, mas eles ainda são de leitura e gravação do sistema operacional Linux.</p>
+<p>Quando um arquivo é modificado no <strong>superior</strong>, a mudança acontece normalmente, mas se um
+a mudança é feita em um arquivo do diretório <strong>inferior</strong>, uma cópia dele é criada no
+<strong>superior</strong> para se tornar acessível, uma vez que a modificação seja concluída em outro
+processo é responsável por buscar a modificação e escrever no ** inferior **
+diretório.</p>
+<p>Portanto, esta união de diretórios fundidos em um único bloco limitado pelo
+cgroups é o que o docker e seu driver de armazenamento usa em nosso exemplo.</p>
+<p>O AUFS que também é um sistema de arquivos de união também apresenta o mesmo comportamento,
+embora alguns dos locais possam ser ligeiramente diferentes.</p>
+<h3 id="verificando-o-sistema-de-arquivos">Verificando o sistema de arquivos</h3>
+<p>Agora que sei como o OverlayFS funciona, vamos isolar os diretórios (camadas) usados
+pelo <code>python: latest</code> para que possamos filtrar apenas aqueles que estamos interessados
+on, aqueles que possuem o arquivo <code>pip.conf</code>.</p>
+<p>Inspecione os contêineres, posso encontrar os diretórios usados ​​no OverlayFS.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect python:latest | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span>
+</span></span><span style="display:flex;"><span>9e7c768dda91c4fa7ed6a57c7cb784834033bff92bd11ff6d062d4de11c0f898
+</span></span><span style="display:flex;"><span>17bf53c98685ae36487eb55f0d2256d168f210a688ef51deef760de1a699cbdf
+</span></span><span style="display:flex;"><span>4cb1dbbf58a2b1ca8df6d9d977a66fe918aee21434fcd656f1a68f1f412d75ff
+</span></span><span style="display:flex;"><span>358dd0944f115e2a273c5259dd1432b44e36908cf223f8ce0d9f74550430f577
+</span></span><span style="display:flex;"><span>c034592b1a26552525742ed81e7fbce2139817b634d48db8349dbebf15a45914
+</span></span><span style="display:flex;"><span>19d471e0407c0f1ca14eb1cb8c46aaef9357037cad5dc170cb6a4af3c1feab40
+</span></span><span style="display:flex;"><span>e005796f193e62e9db78de1df20999daca1a96a0bebed19c1dd906b1b4da8542
+</span></span><span style="display:flex;"><span>badc6aa65b2d3f10b0cdff3fc04bf3a64b551af1dd9e01b6ecd38ed71abdc3da
+</span></span><span style="display:flex;"><span>8d6ff96b718838005288a94cdc9fd408d1f70d7e9cbab678ebeb4521d11b366d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect python:latest | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> &gt; layers.python
+</span></span></code></pre></div><p>Com as camadas salvas no arquivo <code>layers.python</code>, posso usar um comando semelhante para
+exclua as camadas conhecidas do python e obtenha apenas aquelas adicionadas por nossa construção.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v1 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9
+</span></span><span style="display:flex;"><span>v6zy2xgzrow2mgpyq9d0vch6l
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v2 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>v6zy2xgzrow2mgpyq9d0vch6l
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9
+</span></span><span style="display:flex;"><span>oudofb9c0iaqog9sff81f8053
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v3 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9
+</span></span><span style="display:flex;"><span>hqsrze873a2uz7tjsgbqdo3sd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker inspect secret:v4 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>78gz619okusgrq4jo4ek863ug
+</span></span><span style="display:flex;"><span>oq22x88p26hzqmr1w1qpf8mm4
+</span></span></code></pre></div><p>Agora que temos as camadas, criei uma lista apenas para torná-la mais simples
+encontrá-lo quando verificarmos o diretório.</p>
+<h4 id="acessando-os-diretórios-overlayfs">Acessando os diretórios OverlayFS</h4>
+<p>Usando um dos comandos abaixo como root, você encontrará o ponto de entrada onde
+O driver Docker Storage cria a hierarquia do sistema de arquivos usada por todo
+eco-sistema.</p>
+<p><strong>Linux</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /var/lib/docker/
+</span></span></code></pre></div><p><strong>MacOS</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -it --rm --privileged --pid<span style="color:#f92672">=</span>host justincormack/nsenter1
+</span></span><span style="display:flex;"><span>cd /var/lib/docker/
+</span></span></code></pre></div><p>Uma vez no diretório <code>/var/lib/docker</code> usando um simples<code> ls</code> e filtrando o
+camadas anteriores armazenadas no arquivo temporário e expandindo-o eu poderia encontrar o
+camadas específicas que têm o <code>pip.conf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ls | grep -f /tmp/layers | xargs find | grep pip.conf</span>
+</span></span><span style="display:flex;"><span>e1kq2j71b7clcwtn0lbmqa1g9/diff/root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf
+</span></span></code></pre></div><p>Então, acessei cada um deles para confirmar se o arquivo estava presente ou apenas
+sua sombra deixada pela união do diretório.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cat e1kq2j71b7clcwtn0lbmqa1g9/diff/root/.pip/pip.conf</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>global<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>index-url <span style="color:#f92672">=</span> https://hugo.prudente:My$3cr3tP4$$@private.pip/playlist
+</span></span><span style="display:flex;"><span>timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>extra-index-url <span style="color:#f92672">=</span> https://pypi.python.org/simpl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cat hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf</span>
+</span></span><span style="display:flex;"><span>cat: can<span style="color:#ae81ff">\&#39;</span>t open <span style="color:#e6db74">&#39;hqsrze873a2uz7tjsgbqdo3sd/diff/root/.pip/pip.conf&#39;</span>: No such device or address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/var/lib/docker/overlay2 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cat oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf</span>
+</span></span><span style="display:flex;"><span>cat: can<span style="color:#ae81ff">\&#39;</span>t open <span style="color:#e6db74">&#39;oudofb9c0iaqog9sff81f8053/diff/root/.pip/pip.conf&#39;</span>: No such device or address
+</span></span></code></pre></div><p>Portanto, 1 de 3 camadas tem o arquivo presente, então verifiquei de qual contêiner
+essa camada pertence e aqui está a surpresa.</p>
+<p>Essa 1 camada é compartilhada com 3 de 4 construções que criamos, o que significa que
+durante um <code>docker pull</code>, três recipientes diferentes podem vazar meu<code> pip.conf</code>
+segredo.</p>
+<h2 id="resultados">Resultados</h2>
+<p>A matriz atualizada consolidando os resultados sobre onde nossos segredos vazaram.</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th style="text-align:center">Tempo de execução</th>
+<th style="text-align:right">Inspeção</th>
+<th style="text-align:right">OverlayFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secret:v1</td>
+<td style="text-align:center">Yes</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v2</td>
+<td style="text-align:center">No</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v3</td>
+<td style="text-align:center">No</td>
+<td style="text-align:right">No</td>
+<td style="text-align:right">Yes</td>
+</tr>
+<tr>
+<td>secret:v4</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:right">Yes</td>
+<td style="text-align:right">No</td>
+</tr>
+</tbody>
+</table>
+<p>Portanto, mesmo sabendo que o arquivo não pode ser acessado diretamente do contêiner se
+você tem acesso para puxar o contêiner em um sistema completo de leitura e gravação, você seria
+capaz de recuperar os segredos.</p>
+<p>Mas agora qual é a melhor maneira de construir o container e não ter esse problema?</p>
+<h2 id="solução">Solução</h2>
+<p>A partir de 18.09 ou mais recente, o Docker introduziu o Docker BuildKit que traz alguns
+funcionalidade extra para as compilações do Docker.</p>
+<p>As compilações usando BuildKit diferentes do legado permitem o uso do
+<code>--secret</code> que permite a capacidade de vincular um arquivo durante o tempo de execução de compilação
+semelhante ao tempo de execução tradicional que alcançamos com a opção <code>-v</code>.</p>
+<p>Seu uso é bastante simples, vamos construir um contêiner e executar nossos testes novamente.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> --mount<span style="color:#f92672">=</span>type<span style="color:#f92672">=</span>secret,id<span style="color:#f92672">=</span>pip.conf,dst<span style="color:#f92672">=</span>/root/.pip/pip.conf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>      pip install playlist<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker build --file Dockerfile  --secret id<span style="color:#f92672">=</span>pip.conf,src<span style="color:#f92672">=</span>pip.conf -t secret:v5 .
+</span></span></code></pre></div><p>Agora que temos a compilação <code>secret:v5</code>, vamos confirmar.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>➜ docker history secret:v5
+</span></span><span style="display:flex;"><span>IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+</span></span><span style="display:flex;"><span>266a21bb36ae   <span style="color:#ae81ff">36</span> seconds ago   RUN /bin/sh -c pip install playlist <span style="color:#75715e"># bui…   14.1MB    buildkit.dockerfile.v0</span>
+</span></span><span style="display:flex;"><span>&lt;missing&gt;      <span style="color:#ae81ff">11</span> days ago      /bin/sh -c <span style="color:#75715e">#(nop)  CMD [&#34;python3&#34;]              0Bi</span>
+</span></span></code></pre></div><p>O histórico neste caso é limpo, sem nem mencionar a montagem para <code>pip.conf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>❯ docker run -it secret:v5 cat /root/.pip/pip.conf
+</span></span><span style="display:flex;"><span>cat: /root/.pip/pip.conf: No such file or directory
+</span></span></code></pre></div><p>O arquivo também não está presente no sistema.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>❯ docker inspect secret:v5 | grep Dir | grep -Eo <span style="color:#e6db74">&#34;([a-z0-9]{25,64})&#34;</span> | grep -v -f layers.python  | uniq
+</span></span><span style="display:flex;"><span>cnpw0dw9o05lmdz3j9j62jzpt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on ⛵ k3s <span style="color:#f92672">(</span>nerdweek<span style="color:#f92672">)</span> ~/post via 🐍 v3.9.1 <span style="color:#f92672">(</span>osx<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>/var/lib/docker/overlay2 <span style="color:#75715e"># </span>
+</span></span><span style="display:flex;"><span>ls cnpw0dw9o05lmdz3j9j62jzpt | xargs find | grep pip.conf
+</span></span><span style="display:flex;"><span>find: committed: No such file or directory
+</span></span><span style="display:flex;"><span>find: diff: No such file or directory
+</span></span><span style="display:flex;"><span>find: link: No such file or directory
+</span></span><span style="display:flex;"><span>find: lower: No such file or directory
+</span></span><span style="display:flex;"><span>find: work: No such file or directory
+</span></span></code></pre></div><p>E o mais importante, o arquivo não existe na camada / diretório que acabamos de
+criado, o que significa que se usarmos em uma imagem de base, nossos scretes estão seguros.</p>
+<h2 id="referências">Referências</h2>
+<ul>
+<li><a href="https://docs.docker.com/develop/develop-images/build_enhancements/">https://docs.docker.com/develop/develop-images/build_enhancements/</a></li>
+<li><a href="https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html">https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html</a></li>
+<li><a href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/">https://docs.docker.com/storage/storagedriver/overlayfs-driver/</a></li>
+</ul>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/containers/">Containers</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/security/">Security</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/docker/">Docker</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/credentials/">Credentials</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/secrets/">Secrets</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/vault/">Vault</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/categories/cloud-computing-virtualization/">Cloud Computing &amp; Virtualization</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/categories/essentials/">Essentials</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        1875 Palavras
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2021-03-04T31:46&#43;0000
+        
+
+         
+          
+        
+      </p>
+    </div>
+
+    
+    <div class="pagination">
+        
+
+        <div class="pagination__buttons">
+            
+
+            
+            <span class="button next">
+                <a href="https://hugoprudente.github.io/pt-br/posts/usando-aws-network-acls-com-natgateway/">
+                    <span class="button__text">Usando AWS Network ACLs com NAT Gateway</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+      
+        <div id="comments">
+          <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugoprudente" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+      
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.205d491810c28f95aa953fae884e1c27abe13fdf93ec63b882d0036b248d4a6282eb2d134e4e7225c6ad6e86db87b08488a361ca4a7383d01fcff43f3d57b9c3.js" integrity="sha512-IF1JGBDCj5WqlT&#43;uiE4cJ6vhP9&#43;T7GO4gtADaySNSmKC6y0TTk5yJcatbobbh7CEiKNhykpzg9Afz/Q/PVe5ww=="></script>
+
+
+
+    </body>
+</html>

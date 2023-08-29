@@ -5,10 +5,18 @@
     <link>https://hugoprudente.github.io/en/tags/containers/</link>
     <description>Recent content in Containers on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate>
-    
-	<atom:link href="https://hugoprudente.github.io/en/tags/containers/index.xml" rel="self" type="application/rss+xml" />
-    
+    <language>en</language>
+    <lastBuildDate>Thu, 04 Mar 2021 22:46:31 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/en/tags/containers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Managing Secrets During Docker Build</title>
+      <link>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</link>
+      <pubDate>Thu, 04 Mar 2021 22:46:31 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</guid>
+      <description>What would be the best way to manage my secrets during a docker build?
+Checking official and unofficial projects available in hub.docker.com, I have collected the 4 (four) most common cases on how users are storing and managing their secrets.
+There are cases that during the build you would use a token or secret file for fetch information from a repo or other application to setup a configuration that will not be possible during runtime.</description>
+    </item>
     
     <item>
       <title>Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</title>
@@ -20,7 +28,7 @@
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
 Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
- NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
+NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google) During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
     </item>
     
     <item>

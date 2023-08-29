@@ -5,11 +5,8 @@
     <link>https://hugoprudente.github.io/en/tags/kuberentes/</link>
     <description>Recent content in Kuberentes on Hugo Prudente</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate>
-    
-	<atom:link href="https://hugoprudente.github.io/en/tags/kuberentes/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en</language>
+    <lastBuildDate>Tue, 21 Jan 2020 21:23:25 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/en/tags/kuberentes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</title>
       <link>https://hugoprudente.github.io/en/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/</link>
@@ -20,7 +17,7 @@
 The principal issue reported by the community is the annotation nginx.ingress.kubernetes.io/rewrite-target: / not working.
 The cause of the not working tag is the the ingres-controller being used. Let me clarify!
 Commonly we go to google.com and search for the key works &amp;ldquo;kuberentes ingress controller&amp;rdquo;, this will return two oficial projects, by different companies.
- NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google)  During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
+NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google) During the troubleshoot the first thing that we must define is which ingress-controller for Nginx is being used:</description>
     </item>
     
   </channel>

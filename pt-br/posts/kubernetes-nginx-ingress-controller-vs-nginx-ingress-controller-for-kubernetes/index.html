@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Hugo Prudente ">
+<meta name="description" content="Vejo sempre pessoas com problemas utilizando o Kubernetes Ingress Controller tipo Nginx.
+O principal problema reportado na comunidade é na anotação nginx.ingress.kubernetes.io/rewrite-target: / não funcionando.
+A causa da tag não funcionando é do ingres-controller sendo utilizado. Vamos clarificar!
+Geralmente vamos ao google.com e procuramos pelas seguintes palavras &amp;ldquo;kuberentes ingress controller&amp;rdquo;, isso retornara 2 projetos Oficiais, por duas companhias diferentes.
+NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google) Durante o troubleshoot o primeiro passo é definir qual ingress-controller do Nginx está sendo utilizado:" />
+<meta name="keywords" content="posts, programming, devops, sysadmin, security, automation, aws, Containers, Nginx, Google, Kuberentes" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://hugoprudente.github.io/pt-br/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/" />
+
+
+    <title>
+        
+            Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes :: Hugo Prudente  — devops
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="/main.b78c3be9451dc4ca61ca377f3dc2cf2e6345a44c2bae46216a322ef366daa399.css" integrity="sha256-t4w76UUdxMphyjd/PcLPLmNFpEwrrkYhajIu82bao5k=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes">
+<meta itemprop="description" content="Vejo sempre pessoas com problemas utilizando o Kubernetes Ingress Controller tipo Nginx.
+O principal problema reportado na comunidade é na anotação nginx.ingress.kubernetes.io/rewrite-target: / não funcionando.
+A causa da tag não funcionando é do ingres-controller sendo utilizado. Vamos clarificar!
+Geralmente vamos ao google.com e procuramos pelas seguintes palavras &ldquo;kuberentes ingress controller&rdquo;, isso retornara 2 projetos Oficiais, por duas companhias diferentes.
+NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google) Durante o troubleshoot o primeiro passo é definir qual ingress-controller do Nginx está sendo utilizado:"><meta itemprop="datePublished" content="2020-01-21T21:23:25+00:00" />
+<meta itemprop="dateModified" content="2020-01-21T21:23:25+00:00" />
+<meta itemprop="wordCount" content="435"><meta itemprop="image" content="https://hugoprudente.github.io"/>
+<meta itemprop="keywords" content="Containers,Nginx,Google,Kuberentes," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://hugoprudente.github.io"/>
+
+<meta name="twitter:title" content="Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes"/>
+<meta name="twitter:description" content="Vejo sempre pessoas com problemas utilizando o Kubernetes Ingress Controller tipo Nginx.
+O principal problema reportado na comunidade é na anotação nginx.ingress.kubernetes.io/rewrite-target: / não funcionando.
+A causa da tag não funcionando é do ingres-controller sendo utilizado. Vamos clarificar!
+Geralmente vamos ao google.com e procuramos pelas seguintes palavras &ldquo;kuberentes ingress controller&rdquo;, isso retornara 2 projetos Oficiais, por duas companhias diferentes.
+NGINX Ingress Controller for Kubernetes by NGINX Kubernetes Nginx Ingress Controller by Kubernetes (Google) Durante o troubleshoot o primeiro passo é definir qual ingress-controller do Nginx está sendo utilizado:"/>
+
+
+
+
+
+    <meta property="article:section" content="Cloud Computing &amp; Virtualization" />
+
+
+
+    <meta property="article:published_time" content="2020-01-21 21:23:25 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-154006380-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/pt-br/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                make</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/pt-br/posts">Blog</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        3 minutos
+
+         | Também disponível em
+          
+              <a href="https://hugoprudente.github.io/en/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/"><span class="flag fi fi-gb"></span></a>
+          
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://hugoprudente.github.io/pt-br/posts/kubernetes-nginx-ingress-controller-vs-nginx-ingress-controller-for-kubernetes/">Kubernetes Nginx Ingress Controller vs Nginx Ingress Controller for Kubernetes</a>
+      </h1>
+
+      
+
+      
+
+      
+
+      <div class="post-content">
+        <p>Vejo sempre pessoas com problemas utilizando o <strong>Kubernetes Ingress Controller</strong> tipo <strong>Nginx</strong>.</p>
+<p>O principal problema reportado na comunidade é na anotação <code>nginx.ingress.kubernetes.io/rewrite-target: /</code> não funcionando.</p>
+<p>A causa da <em>tag</em> não funcionando é do <code>ingres-controller</code> sendo utilizado. Vamos clarificar!</p>
+<p>Geralmente vamos ao <code>google.com</code> e procuramos pelas seguintes palavras &ldquo;kuberentes ingress controller&rdquo;, isso retornara 2 projetos <strong>Oficiais</strong>, por duas companhias diferentes.</p>
+<ul>
+<li><a href="https://docs.nginx.com/nginx-ingress-controller/">NGINX Ingress Controller for Kubernetes</a> by NGINX</li>
+<li><a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a> by Kubernetes (Google)</li>
+</ul>
+<p>Durante o troubleshoot o primeiro passo é definir qual <code>ingress-controller</code> do <strong>Nginx</strong> está sendo utilizado:</p>
+<p>Com o <strong>helm</strong> podemos checar o repositorio do qual foi instalado:</p>
+<p>Provided by NGINX</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>○ → helm repo add nginx-stable https://helm.nginx.com/stable
+</span></span><span style="display:flex;"><span>○ → helm search hub nginx-ingress
+</span></span><span style="display:flex;"><span>URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
+</span></span><span style="display:flex;"><span>https://hub.helm.sh/charts/nginx/nginx-ingress          0.4.1           1.6.1           NGINX Ingress Controller                          
+</span></span></code></pre></div><p>Provided by Kubernetes</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>○ → helm repo add stable https://kubernetes-charts.storage.googleapis.com
+</span></span><span style="display:flex;"><span>○ → helm search hub nginx-ingress
+</span></span><span style="display:flex;"><span>URL                                                     CHART VERSION   APP VERSION     DESCRIPTION                                       
+</span></span><span style="display:flex;"><span>https://hub.helm.sh/charts/stable/nginx-ingress         1.29.3          0.27.1          An nginx Ingress controller that uses ConfigMap...
+</span></span></code></pre></div><p>Alternativamente se a solucao nao foi instalada pelo <strong>helm</strong> podemos checar a origem da imagem do <code>ingres-controller</code> com o comando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>○ → kubectl describe deployment  | grep Image
+</span></span><span style="display:flex;"><span>    Image:       quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.27.1
+</span></span><span style="display:flex;"><span>    Image:       nginx/nginx-ingress:1.6.1
+</span></span></code></pre></div><p>Do <a href="https://github.com/nginxinc/kubernetes-ingress/">NGINX Ingress Controller for Kubernetes</a>, GitHub confirmamos a propriadade da imagem <strong>nginx-ingress:1.6.1</strong>.</p>
+<p>Do <a href="https://github.com/kubernetes/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>, GitHub confirmamos a propriadade da imagem <strong>nginx-ingress-controller:0.27.1</strong>.</p>
+<p>Agora que definimos o projeto que esta sendo utilizado vamos as configurações:</p>
+<h1 id="nginx-ingress-controller-for-kubernetes">NGINX Ingress Controller for Kubernetes</h1>
+<p>Mantido pela NGINX a documentação pode ser encontrada em <a href="https://docs.nginx.com/nginx-ingress-controller/">Nginx Ingress Controller for Kubernetes</a>:</p>
+<p>As tags para este projeto são <code>nginx.org</code> e <code>nginx.com</code> para as funções pagas.</p>
+<p>Exemplos explorando as funções deste projeto podem ser encontradas no <a href="https://github.com/nginxinc/kubernetes-ingress/tree/v1.6.1/examples">GitHub</a></p>
+<p>Exemplo para funções rewrite:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">extensions/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cafe-ingress</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nginx.org/rewrites</span>: <span style="color:#e6db74">&#34;serviceName=tea-svc rewrite=/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">host</span>: <span style="color:#ae81ff">cafe.example.com</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tea/</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">tea-svc</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><h1 id="kubernetes-nginx-ingress-controller">Kubernetes NGINX Ingress Controller</h1>
+<p>Mantido pela comunidade do Kubernetes a documentação pode ser encontrada em<a href="https://kubernetes.github.io/ingress-nginx/">Kubernetes Nginx Ingress Controller</a>:</p>
+<p>As tags para este projeto é <code>nginx.ingress.kubernetes.io/</code> e não possui funções extras.</p>
+<p>Exemplos explorando as funções deste projeto podem ser encontradas no <a href="https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples">GitHub</a></p>
+<p>Exemplo para funções rewrite:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1beta1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cafe-ingress</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">nginx.ingress.kubernetes.io/rewrite-target</span>: <span style="color:#ae81ff">/</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tea</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">backend</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">tea-svc</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">servicePort</span>: <span style="color:#ae81ff">80</span>
+</span></span></code></pre></div><hr>
+<p>Estes projetos são alguns meses de diferença e não há uma explicação clara do porque o Kubernetes Ingress Controller escolheu exatamente o nesmo nome do projeto do NGINX que já estava sendo mantido.</p>
+<p>Em resumo, os nomes são muito similares e em um &ldquo;Bag of Words&rdquo; eles poderiam ser considerado os mesmos, então fica esse alerta para não fazer deploy de <em>bananas</em> pensando que são <em>maças</em>.</p>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/containers/">Containers</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/nginx/">Nginx</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/google/">Google</a></span>
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/tags/kuberentes/">Kuberentes</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://hugoprudente.github.io/pt-br/categories/cloud-computing-virtualization/">Cloud Computing &amp; Virtualization</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        435 Palavras
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2020-01-21T25:23&#43;0000
+        
+
+         
+          
+        
+      </p>
+    </div>
+
+    
+    <div class="pagination">
+        
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://hugoprudente.github.io/pt-br/posts/usando-aws-network-acls-com-natgateway/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">Usando AWS Network ACLs com NAT Gateway</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://hugoprudente.github.io/pt-br/posts/a-maneira-mais-rapida-de-deletar-um-grande-numero-de-arquivos/">
+                    <span class="button__text">A maneira mais rápida de deletar um grande número arquivos</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+      
+        <div id="comments">
+          <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugoprudente" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+      
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.205d491810c28f95aa953fae884e1c27abe13fdf93ec63b882d0036b248d4a6282eb2d134e4e7225c6ad6e86db87b08488a361ca4a7383d01fcff43f3d57b9c3.js" integrity="sha512-IF1JGBDCj5WqlT&#43;uiE4cJ6vhP9&#43;T7GO4gtADaySNSmKC6y0TTk5yJcatbobbh7CEiKNhykpzg9Afz/Q/PVe5ww=="></script>
+
+
+
+    </body>
+</html>
