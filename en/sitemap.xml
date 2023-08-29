@@ -2,8 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://hugoprudente.github.io/en/tags/archive/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/tags/archive/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/tags/archive/"
+                />
+  </url><url>
     <loc>https://hugoprudente.github.io/en/categories/</loc>
-    <lastmod>2021-03-04T22:46:31+00:00</lastmod>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -13,6 +26,110 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://hugoprudente.github.io/en/categories/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/tags/lectures/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/tags/lectures/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/tags/lectures/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/posts/online-talks-and-lectures-archive/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/posts/online-talks-and-lectures-archive/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/posts/online-talks-and-lectures-archive/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/posts/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/posts/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/tags/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/tags/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/tags/talks/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/tags/talks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/tags/talks/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/tags/tech/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/tags/tech/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/tags/tech/"
+                />
+  </url><url>
+    <loc>https://hugoprudente.github.io/en/categories/tech/</loc>
+    <lastmod>2023-08-29T10:32:57+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://hugoprudente.github.io/pt-br/categories/tech/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://hugoprudente.github.io/en/categories/tech/"
                 />
   </url><url>
     <loc>https://hugoprudente.github.io/en/categories/cloud-computing-virtualization/</loc>
@@ -80,19 +197,6 @@
                 href="https://hugoprudente.github.io/en/categories/essentials/"
                 />
   </url><url>
-    <loc>https://hugoprudente.github.io/en/</loc>
-    <lastmod>2021-03-04T22:46:31+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="https://hugoprudente.github.io/pt-br/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/"
-                />
-  </url><url>
     <loc>https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/</loc>
     <lastmod>2021-03-04T22:46:31+00:00</lastmod>
     <xhtml:link
@@ -104,19 +208,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://hugoprudente.github.io/en/posts/managing-secrets-during-docker-build/"
-                />
-  </url><url>
-    <loc>https://hugoprudente.github.io/en/posts/</loc>
-    <lastmod>2021-03-04T22:46:31+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="https://hugoprudente.github.io/pt-br/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/posts/"
                 />
   </url><url>
     <loc>https://hugoprudente.github.io/en/tags/secrets/</loc>
@@ -143,19 +234,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://hugoprudente.github.io/en/tags/security/"
-                />
-  </url><url>
-    <loc>https://hugoprudente.github.io/en/tags/</loc>
-    <lastmod>2021-03-04T22:46:31+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="https://hugoprudente.github.io/pt-br/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://hugoprudente.github.io/en/tags/"
                 />
   </url><url>
     <loc>https://hugoprudente.github.io/en/tags/vault/</loc>

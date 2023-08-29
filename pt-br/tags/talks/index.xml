@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Talks on Hugo Prudente</title>
+    <link>https://hugoprudente.github.io/pt-br/tags/talks/</link>
+    <description>Recent content in Talks on Hugo Prudente</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-br</language>
+    <lastBuildDate>Tue, 29 Aug 2023 10:32:57 +0000</lastBuildDate><atom:link href="https://hugoprudente.github.io/pt-br/tags/talks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Online Talks and Lectures Archive</title>
+      <link>https://hugoprudente.github.io/pt-br/posts/online-talks-and-lectures-archive/</link>
+      <pubDate>Tue, 29 Aug 2023 10:32:57 +0000</pubDate>
+      
+      <guid>https://hugoprudente.github.io/pt-br/posts/online-talks-and-lectures-archive/</guid>
+      <description>Engeneering Sessions (Carlos Nogueira) WarRoom: Hashcorp adota BSL: OpenTF the Fork Participantes:
+MC Marcelo Nogueira Fernando Ike Marco Junior (Somatorio) Hugo Prudente Guto Carvalho Video is in Portuguese from Brasil
+Pipelines Participantes:
+MC Marcelo Nogueira Guto Carvalho Hugo Prudente Video is in Portuguese from Brasil
+Will WASM replace K8S? Participantes:
+MC Marcelo Nogueira Daniel Romero (infoslack) Joao Brito (GetUp) Hugo Prudente Video is in Portuguese from Brasil
+Metrics &amp;amp; Observability Participantes:</description>
+    </item>
+    
+  </channel>
+</rss>

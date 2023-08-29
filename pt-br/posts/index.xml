@@ -5,8 +5,91 @@
         <description>Recent content in Posts on Hugo Prudente</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>pt-br</language>
-        <lastBuildDate>Thu, 04 Mar 2021 22:46:31 +0000</lastBuildDate>
+        <lastBuildDate>Tue, 29 Aug 2023 10:32:57 +0000</lastBuildDate>
         <atom:link href="https://hugoprudente.github.io/pt-br/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Online Talks and Lectures Archive</title>
+            <link>https://hugoprudente.github.io/pt-br/posts/online-talks-and-lectures-archive/</link>
+            <pubDate>Tue, 29 Aug 2023 10:32:57 +0000</pubDate>
+            
+            <guid>https://hugoprudente.github.io/pt-br/posts/online-talks-and-lectures-archive/</guid>
+            <description>Engeneering Sessions (Carlos Nogueira) WarRoom: Hashcorp adota BSL: OpenTF the Fork Participantes:
+MC Marcelo Nogueira Fernando Ike Marco Junior (Somatorio) Hugo Prudente Guto Carvalho Video is in Portuguese from Brasil
+Pipelines Participantes:
+MC Marcelo Nogueira Guto Carvalho Hugo Prudente Video is in Portuguese from Brasil
+Will WASM replace K8S? Participantes:
+MC Marcelo Nogueira Daniel Romero (infoslack) Joao Brito (GetUp) Hugo Prudente Video is in Portuguese from Brasil
+Metrics &amp;amp; Observability Participantes:</description>
+            <content type="html"><![CDATA[<h2 id="engeneering-sessions-carlos-nogueira">Engeneering Sessions (Carlos Nogueira)</h2>
+<h3 id="warroom-hashcorp-adota-bsl-opentf-the-fork">WarRoom: Hashcorp adota BSL: OpenTF the Fork</h3>
+<p>Participantes:</p>
+<ul>
+<li>MC Marcelo Nogueira</li>
+<li>Fernando Ike</li>
+<li>Marco Junior (Somatorio)</li>
+<li>Hugo Prudente</li>
+<li>Guto Carvalho</li>
+</ul>
+<blockquote>
+<p>Video is in Portuguese from Brasil</p>
+</blockquote>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BU9RdqENgPo?si=fkA354m31sH2CNfX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3 id="pipelines">Pipelines</h3>
+<p>Participantes:</p>
+<ul>
+<li>MC Marcelo Nogueira</li>
+<li>Guto Carvalho</li>
+<li>Hugo Prudente</li>
+</ul>
+<blockquote>
+<p>Video is in Portuguese from Brasil</p>
+</blockquote>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wNqeR9O5ay0?si=nTkAgzCksqoFHZ4t" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3 id="will-wasm-replace-k8s">Will WASM replace K8S?</h3>
+<p>Participantes:</p>
+<ul>
+<li>MC Marcelo Nogueira</li>
+<li>Daniel Romero (infoslack)</li>
+<li>Joao Brito (GetUp)</li>
+<li>Hugo Prudente</li>
+</ul>
+<blockquote>
+<p>Video is in Portuguese from Brasil</p>
+</blockquote>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iW7eTFSquaY?si=5fBbiIFQ1LYdvHGt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3 id="metrics--observability">Metrics &amp; Observability</h3>
+<p>Participantes:</p>
+<ul>
+<li>MC Marcelo Nogueira</li>
+<li>Daniel Requena</li>
+<li>Hugo Prudente</li>
+<li>Vitor Lobo</li>
+</ul>
+<blockquote>
+<p>Video is in Portuguese from Brasil</p>
+</blockquote>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UwuhEn6XXe0?si=UbQEDCm8GfN_GUvj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h2 id="linuxtips">LinuxTips</h2>
+<h3 id="zuul-ci-com-ansible-nativo">Zuul CI com Ansible Nativo</h3>
+<blockquote>
+<p>Video is in Portuguese from Brasil</p>
+</blockquote>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ETZYDvAYLX4?si=cg6xSdr7nR313So-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h2 id="jac-lives">Jac lives</h2>
+<h3 id="disaster-recovery">Disaster Recovery</h3>
+<p>Talk with Guto Carvalho about Disaster Recovery</p>
+<blockquote>
+<p>Video is in Portuguese from Brasil</p>
+</blockquote>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/w-wdO4WlFBU?si=sPvwVfrNerM5RHg4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h2 id="devopsdays">DevOpsDays</h2>
+<h3 id="devopsdays-poa-2021---zuul-ci-com-ansible-nativo">DevOpsDays POA 2021 - Zuul CI com Ansible Nativo</h3>
+<blockquote>
+<p>Video is in Portuguese from Brasil</p>
+</blockquote>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/d0Akc-Ox4f4?si=jUCkEv4aQcXd5T0z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>]]></content>
+        </item>
         
         <item>
             <title>Gerenciando Segredos Durante Docker Build</title>
